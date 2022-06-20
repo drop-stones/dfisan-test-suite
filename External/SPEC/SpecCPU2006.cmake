@@ -74,6 +74,8 @@ if(TEST_SUITE_SPEC2006_ROOT)
     append_target_flags(COMPILE_FLAGS ${target} -fall-align=4)
 
     set(target-bc "${target}.bc")
+    set(target-ll "${target}.ll")
+    set(target-obj "${target}.o")
     set(dfi-target "dfi-${target}")
     # set(dfi-compile-options " -fsanitize=dfi -mllvm --debug-only=usedef-log" CACHE INTERNAL "dfisan compile options")
     add_custom_command(
@@ -81,9 +83,12 @@ if(TEST_SUITE_SPEC2006_ROOT)
       POST_BUILD
       COMMAND echo "Create ${dfi-target}"
       COMMAND extract-bc ${target}
-      COMMAND llvm-dis ${target-bc}
-      COMMAND $ENV{LLVM_COMPILER_PATH}/$ENV{LLVM_COMPILER} -fsanitize=dfi -mllvm --debug-only=usedef-log ${target-bc} -o ${dfi-target}
-      # COMMAND $ENV{LLVM_COMPILER_PATH}/$ENV{LLVM_COMPILER} ${dfi-compile-options} ${target-bc} -o ${dfi-target}
+      # COMMAND $ENV{LLVM_COMPILER_PATH}/$ENV{LLVM_COMPILER} -fsanitize=dfi -mllvm --debug-only=usedef-log ${target-bc} -o ${dfi-target}
+      COMMAND $ENV{LLVM_COMPILER_PATH}/$ENV{LLVM_COMPILER} -O0 -fsanitize=dfi -mllvm --debug-only=usedef-log ${target-bc} -S -emit-llvm -o ${target-ll}
+      COMMAND $ENV{LLVM_COMPILER_PATH}/llc -filetype=obj ${target-ll} -o ${target-obj}
+      COMMAND $ENV{LLVM_COMPILER_PATH}/$ENV{LLVM_COMPILER} -O0 -fsanitize=dfi ${target-obj} -o ${dfi-target}
+      COMMAND cp ${target} "original-${target}"
+      COMMAND cp ${dfi-target} ${target}
     )
   endfunction()
 endif()
