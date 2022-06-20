@@ -75,13 +75,15 @@ if(TEST_SUITE_SPEC2006_ROOT)
 
     set(target-bc "${target}.bc")
     set(dfi-target "dfi-${target}")
+    # set(dfi-compile-options " -fsanitize=dfi -mllvm --debug-only=usedef-log" CACHE INTERNAL "dfisan compile options")
     add_custom_command(
       TARGET ${target}
       POST_BUILD
       COMMAND echo "Create ${dfi-target}"
       COMMAND extract-bc ${target}
       COMMAND llvm-dis ${target-bc}
-      COMMAND $ENV{LLVM_COMPILER_PATH}/$ENV{LLVM_COMPILER} -fsanitize=dfi ${target-bc} -o ${dfi-target}
+      COMMAND $ENV{LLVM_COMPILER_PATH}/$ENV{LLVM_COMPILER} -fsanitize=dfi -mllvm --debug-only=usedef-log ${target-bc} -o ${dfi-target}
+      # COMMAND $ENV{LLVM_COMPILER_PATH}/$ENV{LLVM_COMPILER} ${dfi-compile-options} ${target-bc} -o ${dfi-target}
     )
   endfunction()
 endif()
