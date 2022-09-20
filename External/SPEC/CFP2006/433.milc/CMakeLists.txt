@@ -19,6 +19,10 @@ test_input(test)
 test_input(train)
 test_input(ref)
 
-# llvm_test_executable(433.milc ${Source})
-dfisan_test_executable(433.milc ${Source})
+if(DFISAN)
+  dfisan_test_executable(433.milc ${Source})
+else()
+  llvm_test_executable(433.milc ${Source})
+endif()
+
 llvm_test_data_spec_default(433.milc)

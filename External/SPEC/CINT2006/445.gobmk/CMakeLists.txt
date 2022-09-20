@@ -40,7 +40,10 @@ foreach(tstfile IN ITEMS
   test_input(ref ${tstfile} ${basename}.out)
 endforeach()
 
-llvm_test_executable(445.gobmk ${Source})
-# Error at clang::ASTContext::getASTRecordLayout
-# dfisan_test_executable(445.gobmk ${Source})
+if(DFISAN)
+  dfisan_test_executable(445.gobmk ${Source})
+else()
+  llvm_test_executable(445.gobmk ${Source})
+endif()
+
 llvm_test_data_spec_default(445.gobmk)

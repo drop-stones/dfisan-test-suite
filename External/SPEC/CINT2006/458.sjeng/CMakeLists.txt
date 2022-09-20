@@ -11,6 +11,10 @@ test_input(test)
 test_input(train)
 test_input(ref)
 
-# llvm_test_executable(458.sjeng ${Source})
-dfisan_test_executable(458.sjeng ${Source})
+if(DFISAN)
+  dfisan_test_executable(458.sjeng ${Source})
+else()
+  llvm_test_executable(458.sjeng ${Source})
+endif()
+
 llvm_test_data_spec_default(458.sjeng)

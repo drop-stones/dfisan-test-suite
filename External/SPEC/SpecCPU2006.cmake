@@ -64,14 +64,10 @@ if(TEST_SUITE_SPEC2006_ROOT)
   endfunction()
 
   # Create a new executable build target.
-  # TODO:
-  #  - Create a single LLVM IR file
-  #  - Add dfisan flags
-  #  - Compile to executable
   function(dfisan_test_executable target)
     message("DFISan Target: ${target}")
     llvm_test_executable(${target} ${ARGN})
-    append_target_flags(COMPILE_FLAGS ${target} -fall-align=4)
+    # append_target_flags(COMPILE_FLAGS ${target} ${flags})
 
     set(target-bc "${target}.bc")
     set(target-ll "${target}.ll")
@@ -89,6 +85,7 @@ if(TEST_SUITE_SPEC2006_ROOT)
       COMMAND $ENV{LLVM_COMPILER_PATH}/$ENV{LLVM_COMPILER} -O0 -fsanitize=dfi ${target-obj} -o ${dfi-target}
       COMMAND cp ${target} "original-${target}"
       COMMAND cp ${dfi-target} ${target}
+      # COMMAND mv ${target-ll}.sqlite3 ${target}.sqlite3
     )
   endfunction()
 endif()

@@ -26,9 +26,12 @@ test_input(ref foreman_ref_ baseline)
 test_input(ref foreman_ref_ main)
 test_input(ref sss_ main)
 
-llvm_test_executable(464.h264ref ${Source})
-# Error because of multiple definition of `...`
-# dfisan_test_executable(464.h264ref ${Source})
+if(DFISAN)
+  dfisan_test_executable(464.h264ref ${Source})
+else()
+  llvm_test_executable(464.h264ref ${Source})
+endif()
+
 llvm_test_data_spec(464.h264ref
   data/test/output
   data/train/output

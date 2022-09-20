@@ -31,7 +31,10 @@ test_input(ref g23.in g23.s)
 test_input(ref s04.in s04.s)
 test_input(ref scilab.in scilab.s)
 
-llvm_test_executable(403.gcc ${Source})
-# Error at clang::ASTContext::getASTRecordLayout
-# dfisan_test_executable(403.gcc ${Source})
+if(DFISAN)
+  dfisan_test_executable(403.gcc ${Source})
+else()
+  llvm_test_executable(403.gcc ${Source})
+endif()
+
 llvm_test_data_spec_default(403.gcc)

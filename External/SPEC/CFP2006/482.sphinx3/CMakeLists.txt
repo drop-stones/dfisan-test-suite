@@ -37,9 +37,11 @@ foreach(s ${Source})
   set_source_files_properties(${s} PROPERTIES COMPILE_DEFINITIONS __FILE__="${basename}")
 endforeach()
 
-llvm_test_executable(482.sphinx3 ${Source})
-# Error because of undefined reference
-# dfisan_test_executable(482.sphinx3 ${Source})
+if(DFISAN)
+  dfisan_test_executable(482.sphinx3 ${Source})
+else()
+  llvm_test_executable(482.sphinx3 ${Source})
+endif()
 
 macro(prepare_data run_type)
   set(DESTDIR ${CMAKE_CURRENT_BINARY_DIR}/data/${run_type}/input)

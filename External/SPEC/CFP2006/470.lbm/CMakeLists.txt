@@ -19,7 +19,10 @@ test_input(test   20 reference.dat 0 1 100_100_130_cf_a.of)
 test_input(train 300 reference.dat 0 1 100_100_130_cf_b.of)
 test_input(ref  3000 reference.dat 0 0 100_100_130_ldc.of)
 
-llvm_test_executable(470.lbm ${Source})
-# Error at runtime test
-# dfisan_test_executable(470.lbm ${Source})
+if(DFISAN)
+  dfisan_test_executable(470.lbm ${Source})
+else()
+  llvm_test_executable(470.lbm ${Source})
+endif()
+
 llvm_test_data_spec_default(470.lbm)

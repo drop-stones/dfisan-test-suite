@@ -125,7 +125,10 @@ foreach(input ${inputs})
   )
 endforeach()
 
-llvm_test_executable(400.perlbench ${Source})
-# Error because of unkown type name
-# dfisan_test_executable(400.perlbench ${Source})
+if(DFISAN)
+  dfisan_test_executable(400.perlbench ${Source})
+else()
+  llvm_test_executable(400.perlbench ${Source})
+endif()
+
 llvm_test_data_spec(400.perlbench MUST_COPY data)

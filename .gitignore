@@ -3,3 +3,5 @@
 /test-suite-externals
 *.pyc
 /build*
+/base_build*
+/dfisan_build*

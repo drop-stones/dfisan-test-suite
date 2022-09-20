@@ -30,7 +30,10 @@ test_input(ref retro.hmm retro.out
   --fixed 0 --mean 500 --num 500000 --sd 350 --seed 0
 )
 
-llvm_test_executable(456.hmmer ${Source})
-# Error because of multiple definition + undefined reference
-# dfisan_test_executable(456.hmmer ${Source})
+if(DFISAN)
+  dfisan_test_executable(456.hmmer ${Source})
+else()
+  llvm_test_executable(456.hmmer ${Source})
+endif()
+
 llvm_test_data_spec_default(456.hmmer)

@@ -19,7 +19,10 @@ test_input(test 33 5)
 test_input(train 143 25)
 test_input(ref 1397 8)
 
-llvm_test_executable(462.libquantum ${Source})
-# Error because of unkown type name
-# dfisan_test_executable(462.libquantum ${Source})
+if(DFISAN)
+  dfisan_test_executable(462.libquantum ${Source})
+else()
+  llvm_test_executable(462.libquantum ${Source})
+endif()
+
 llvm_test_data_spec_default(462.libquantum)

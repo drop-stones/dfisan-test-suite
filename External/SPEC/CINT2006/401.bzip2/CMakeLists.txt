@@ -21,7 +21,10 @@ test_input(ref data/all/input/input.program 280 input.program.out)
 test_input(ref data/ref/input/text.html 280 text.html.out)
 test_input(ref data/all/input/input.combined 200 input.combined.out)
 
-llvm_test_executable(401.bzip2 ${Source})
-# Error at runtime
-# dfisan_test_executable(401.bzip2 ${Source})
+if(DFISAN)
+  dfisan_test_executable(401.bzip2 ${Source})
+else()
+  llvm_test_executable(401.bzip2 ${Source})
+endif()
+
 llvm_test_data_spec_default(401.bzip2)
