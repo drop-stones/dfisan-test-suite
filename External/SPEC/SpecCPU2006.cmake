@@ -79,12 +79,18 @@ if(TEST_SUITE_SPEC2006_ROOT)
       POST_BUILD
       COMMAND echo "Create ${dfi-target}"
       COMMAND extract-bc ${target}
-      # COMMAND $ENV{LLVM_COMPILER_PATH}/$ENV{LLVM_COMPILER} -fsanitize=dfi -mllvm --debug-only=usedef-log ${target-bc} -o ${dfi-target}
-      COMMAND $ENV{LLVM_COMPILER_PATH}/$ENV{LLVM_COMPILER} -O0 -fsanitize=dfi -mllvm --debug-only=usedef-log ${target-bc} -S -emit-llvm -o ${target-ll}
-      COMMAND $ENV{LLVM_COMPILER_PATH}/llc -filetype=obj ${target-ll} -o ${target-obj}
-      COMMAND $ENV{LLVM_COMPILER_PATH}/$ENV{LLVM_COMPILER} -O0 -fsanitize=dfi ${target-obj} -o ${dfi-target}
       COMMAND cp ${target} "original-${target}"
-      COMMAND cp ${dfi-target} ${target}
+
+      ## Create executable directly
+      COMMAND $ENV{LLVM_COMPILER_PATH}/$ENV{LLVM_COMPILER} -fsanitize=dfi -mllvm --debug-only=usedef-log ${target-bc} -o ${target}
+
+      ## Create llvm-ir and executable
+      # COMMAND $ENV{LLVM_COMPILER_PATH}/$ENV{LLVM_COMPILER} -O0 -fsanitize=dfi -mllvm --debug-only=usedef-log ${target-bc} -S -emit-llvm -o ${target-ll}
+      # COMMAND $ENV{LLVM_COMPILER_PATH}/$ENV{LLVM_COMPILER} -O0 -fsanitize=dfi ${target-ll} -o ${dfi-target}
+
+      # COMMAND $ENV{LLVM_COMPILER_PATH}/llc -filetype=obj ${target-ll} -o ${target-obj}
+      # COMMAND $ENV{LLVM_COMPILER_PATH}/$ENV{LLVM_COMPILER} -O0 -fsanitize=dfi ${target-obj} -o ${dfi-target}
+      # COMMAND cp ${dfi-target} ${target}
       # COMMAND mv ${target-ll}.sqlite3 ${target}.sqlite3
     )
   endfunction()
