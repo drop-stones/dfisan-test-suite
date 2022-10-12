@@ -73,16 +73,20 @@ if(TEST_SUITE_SPEC2006_ROOT)
     set(target-ll "${target}.ll")
     set(target-obj "${target}.o")
     set(dfi-target "dfi-${target}")
-    # set(dfi-compile-options " -fsanitize=dfi -mllvm --debug-only=usedef-log" CACHE INTERNAL "dfisan compile options")
+    set(options "-mllvm" "--debug-only=usedef-log")
+    if (UNALIGNED_REGION_ONLY)
+      set(options ${options} "-mllvm" "-unaligned-region-only")
+    endif()
+    message(STATUS "options: ${options}")
     add_custom_command(
       TARGET ${target}
       POST_BUILD
-      COMMAND echo "Create ${dfi-target}"
       COMMAND extract-bc ${target}
       COMMAND cp ${target} "original-${target}"
 
       ## Create executable directly
-      COMMAND $ENV{LLVM_COMPILER_PATH}/$ENV{LLVM_COMPILER} -fsanitize=dfi -mllvm --debug-only=usedef-log ${target-bc} -o ${target}
+      COMMAND $ENV{LLVM_COMPILER_PATH}/$ENV{LLVM_COMPILER} -fsanitize=dfi ${options} ${target-bc} -o ${target}
+      COMMAND echo "Create ${dfi-target}"
 
       ## Create llvm-ir and executable
       # COMMAND $ENV{LLVM_COMPILER_PATH}/$ENV{LLVM_COMPILER} -O0 -fsanitize=dfi -mllvm --debug-only=usedef-log ${target-bc} -S -emit-llvm -o ${target-ll}
