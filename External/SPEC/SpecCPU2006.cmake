@@ -73,7 +73,8 @@ if(TEST_SUITE_SPEC2006_ROOT)
     set(target-ll "${target}.ll")
     set(target-obj "${target}.o")
     set(dfi-target "dfi-${target}")
-    set(options "-mllvm" "--debug-only=usedef-log")
+    set(options "-mllvm" "--debug-only=usedef-log") # Output def-use to sqlite3
+    set(options ${options} "-mllvm" "-stats" "-mllvm" "-stats-json" "-mllvm" "-info-output-file=${target}.json") # Output statistics to json file
     if (UNALIGNED_REGION_ONLY)
       set(options ${options} "-mllvm" "-unaligned-region-only")
     endif()

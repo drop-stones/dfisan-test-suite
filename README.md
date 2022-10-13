@@ -31,6 +31,13 @@ Save the results to json file
 $ lit . -o <filename>.json .
 ```
 
+### Run tests n-times
+
+```bash
+$ cd build
+$ ../utils/average.py -n <times> -o <filename>.json
+```
+
 ## Show and compare the results
 
 Show a single result file:
