@@ -20,7 +20,7 @@ if __name__ == "__main__":
     files.append(str(i) + "_" + config.output_filename)
     command = "lit . -q -o " + files[i]
     print(str(i) + ': ' + command)
-    os.system(command)
+    # os.system(command)
 
   ### Read json files
   json_data = compare.readmulti(files)
@@ -60,5 +60,5 @@ if __name__ == "__main__":
   ### Print the result
   print('')
   print('Average Time:')
-  compare_command = os.path.dirname(os.path.realpath(__file__)) + '/compare.py'
+  compare_command = 'python3 ' + os.path.dirname(os.path.realpath(__file__)) + '/compare.py'
   os.system(compare_command + ' ' + config.output_filename)
