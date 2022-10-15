@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import pandas as pd
 import os.path
 import json
 import argparse
@@ -21,35 +22,40 @@ if __name__ == "__main__":
     print(str(i) + ': ' + command)
     os.system(command)
 
-  ### Read the result
-  data = compare.readmulti(files)
+  ### Read json files
+  json_data = compare.readmulti(files)
 
-  proggroup = data.groupby(level=1)
-  size = len(proggroup.indices)
-  metric = 'exec_time'
+  ### Collect test names
+  testnames = set()
+  for testname in json_data.index.get_level_values('Program'):
+    testnames.add(testname)
 
-  ### Calculate sum of exec_time
-  sum = [0] * size
-  for i in range(config.iter_num):
-    for j in range(size):
-      idx = (i * size) + j
-      sum[j] += data[metric][idx]
+  ### Slice and calculate sum of exec_time
+  sum = {}
+  for testname in testnames:
+    sum[testname] = 0
 
-  ### Calculate average
-  average = [0] * size
-  for i in range(size):
-    average[i] = round(sum[i] / config.iter_num, 4)
-
-  ### Load 0_<output_filename> to get information other than execution time
-  jsondata = json.load(open(files[0]))
-
-  ### Overwrite execution time with average time
-  for i in range(size):
-    jsondata["tests"][i]["metrics"]["exec_time"] = average[i]
+  for testname in testnames:
+    testdata = json_data.loc[pd.IndexSlice[:, testname], :]
+    for exec_time in testdata['exec_time']:
+      sum[testname] += exec_time
   
+  ### Calculate average of exec_time
+  average = {}
+  for testname, sum_exec_time in sum.items():
+    average[testname] = round(sum[testname] / config.iter_num, 4)
+  
+  with open(files[0], 'r') as f:
+    result = json.load(f)
+  
+  for test in result['tests']:
+    if test.get('name') == None or test.get('metrics') == None:
+      continue
+    test['metrics']['exec_time'] = average[test['name']]
+
   ### Dump the result to <output_filename>
   with open(config.output_filename, 'w') as f:
-    json.dump(jsondata, f, indent=2)
+    json.dump(result, f, indent=2)
 
   ### Print the result
   print('')
