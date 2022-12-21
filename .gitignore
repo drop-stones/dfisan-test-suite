@@ -3,3 +3,7 @@
 /test-suite-externals
 *.pyc
 /*build*
+/Splash-3/**/*.c
+/Splash-3/**/*.o
+/Splash-3/**/*.h
+/Splash-3/**/*.bc
