@@ -2,6 +2,7 @@
 set(SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/insertion_sort.c)
 set(DFISAN $ENV{LLVM_COMPILER_PATH}/$ENV{LLVM_COMPILER})
 set(DATASHIELD "")
+set(CFLAGS "-O0")
 
 add_custom_target(insertion_sort_target ALL
   DEPENDS
@@ -9,6 +10,7 @@ add_custom_target(insertion_sort_target ALL
     insertion_sort
     baseline_insertion_sort
     dfisan_insertion_sort
+    dfisan_no_check_unsafe_access_insertion_sort
     asan_insertion_sort
     # datashield_insertion_sort
     run_insertion_sort.py
@@ -16,19 +18,23 @@ add_custom_target(insertion_sort_target ALL
 
 add_custom_command(
   OUTPUT insertion_sort
-  COMMAND clang ${SOURCE} -o insertion_sort
+  COMMAND clang ${SOURCE} ${CFLAGS} -o insertion_sort
 )
 add_custom_command(
   OUTPUT baseline_insertion_sort
-  COMMAND ${DFISAN} -fsanitize=dfi ${SOURCE} -o baseline_insertion_sort
+  COMMAND ${DFISAN} -fsanitize=dfi ${SOURCE} ${CFLAGS} -o baseline_insertion_sort
 )
 add_custom_command(
   OUTPUT dfisan_insertion_sort
-  COMMAND ${DFISAN} -fsanitize=dfi -DSAFE_ALLOC ${SOURCE} -o dfisan_insertion_sort
+  COMMAND ${DFISAN} -fsanitize=dfi -DSAFE_ALLOC ${SOURCE} ${CFLAGS} -o dfisan_insertion_sort
+)
+add_custom_command(
+  OUTPUT dfisan_no_check_unsafe_access_insertion_sort
+  COMMAND ${DFISAN} -fsanitize=dfi -DSAFE_ALLOC -mllvm -no-check-unsafe-access ${SOURCE} ${CFLAGS} -o dfisan_no_check_unsafe_access_insertion_sort
 )
 add_custom_command(
   OUTPUT asan_insertion_sort
-  COMMAND clang -fsanitize=address ${SOURCE} -o asan_insertion_sort
+  COMMAND clang -fsanitize=address ${SOURCE} ${CFLAGS} -o asan_insertion_sort
 )
 # add_custom_command(
 #   OUTPUT datashield_insertion_sort
