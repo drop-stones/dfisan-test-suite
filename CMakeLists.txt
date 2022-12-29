@@ -391,3 +391,5 @@ add_custom_target(check
   DEPENDS ${TEST_SUITE_TARGETS}
   USES_TERMINAL
   )
+
+add_subdirectory(experiment)

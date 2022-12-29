@@ -3,6 +3,14 @@ OBJS = code.o code_io.o load.o grav.o getparam.o util.o
 
 include ../../Makefile.config
 
+# To not remove
+grav.c: grav.c.in
+util.c: util.c.in
+code.c: code.c.in
+code_io.c: code_io.c.in
+getparam.c: getparam.c.in
+load.c: load.c.in
+
 stdinc.h: code.h defs.h util.h vectmath.h load.h code_io.h grav.h getparam.h stdinc.h.in
 code.o: code.c.in stdinc.h
 code_io.o: code_io.c.in stdinc.h

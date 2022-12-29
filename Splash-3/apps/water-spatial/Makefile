@@ -15,3 +15,17 @@ poteng.o: poteng.c.in global.h split.h mdvar.h frcnst.h water.h wwpot.h paramete
 predcor.o: predcor.c.in split.h mdvar.h parameters.h mddata.h global.h
 syscons.o: syscons.c.in parameters.h mdvar.h water.h wwpot.h cnst.h mddata.h global.h
 water.o: water.c.in parameters.h mdvar.h water.h wwpot.h cnst.h mddata.h fileio.h frcnst.h randno.h global.h split.h
+
+# To not remove
+kineti.c: kineti.c.in
+water.c: water.c.in
+poteng.c: poteng.c.in
+syscons.c: syscons.c.in
+mdmain.c: mdmain.c.in
+cshift.c: cshift.c.in
+initia.c: initia.c.in
+intraf.c: intraf.c.in
+bndry.c: bndry.c.in
+predcor.c: predcor.c.in
+cnstnt.c: cnstnt.c.in
+interf.c: interf.c.in

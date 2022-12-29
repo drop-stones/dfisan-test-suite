@@ -12,6 +12,9 @@ memory.c: memory.h
 particle.c: particle.h
 partition_grid.c: partition_grid.h
 
+# To not remove
+fmm.c: fmm.c.in
+
 fmm.o: fmm.c.in defs.h memory.h particle.h box.h partition_grid.h cost_zones.h construct_grid.h interactions.h
 interactions.o: interactions.c.in defs.h memory.h particle.h box.h partition_grid.h interactions.h
 shell.o: shell.c.in defs.h memory.h particle.h box.h partition_grid.h interactions.h

@@ -1,0 +1,2 @@
+add_subdirectory(find_max)
+add_subdirectory(insertion_sort)
