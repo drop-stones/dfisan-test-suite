@@ -3,11 +3,14 @@
  */
 
 #include "sensitive_struct.h"
-#include "../safe_alloc.h"
 #include <stdio.h>
 #include <assert.h>
 #include <time.h>
 #include <stdlib.h>
+
+#if SAFE_ALLOC
+#include "../safe_alloc.h"
+#endif
 
 #define ARR_LEN 0xffff
 

@@ -3,11 +3,18 @@
  */
 
 #include "sensitive_struct.h"
-#include "../safe_alloc.h"
 #include <stdio.h>
 #include <assert.h>
 #include <time.h>
 #include <stdlib.h>
+
+#if SAFE_ALLOC
+#include "../safe_alloc.h"
+#endif
+// #if MOVEC
+// int _IO_getc(FILE *stream) { return getc(stream); }
+// int _IO_putc(int c, FILE *stream) { return putc(c, stream); }
+// #endif
 
 #define ARR_LEN 0x6000000
 

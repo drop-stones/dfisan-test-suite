@@ -6,7 +6,12 @@ import matplotlib.pyplot as plt
 
 times = 5
 
-execs = ["find_max", "dfisan_find_max", "dfisan_no_check_unsafe_access_find_max", "asan_find_max"]
+execs = [
+  "find_max",
+  "dfisan_find_max",
+  "dfisan_no_check_unsafe_access_find_max",
+  "asan_find_max",
+  "smatus_find_max"]
 
 sensitive_ratio = list(range(0, 110, 10))   # 0,10,..100
 runtimes = {}
@@ -34,6 +39,7 @@ for exe in execs[1:]:
 plt.plot(sensitive_ratio, overheads["dfisan_find_max"], label="dfisan", marker='o')
 plt.plot(sensitive_ratio, overheads["dfisan_no_check_unsafe_access_find_max"], label="no unsafe check", marker='v')
 plt.plot(sensitive_ratio, overheads["asan_find_max"], label="asan", marker='x')
+plt.plot(sensitive_ratio, overheads["smatus_find_max"], label="smatus", marker="^")
 # plt.plot(sensitive_ratio, overheads["datashield_find_max"], label="DataShield", marker="v")
 
 plt.xlabel('sensitive ratio')

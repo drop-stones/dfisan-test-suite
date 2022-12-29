@@ -6,7 +6,12 @@ import matplotlib.pyplot as plt
 
 times = 5
 
-execs = ["insertion_sort", "dfisan_insertion_sort", "dfisan_no_check_unsafe_access_insertion_sort", "asan_insertion_sort"]
+execs = [
+  "insertion_sort",
+  "dfisan_insertion_sort",
+  "dfisan_no_check_unsafe_access_insertion_sort",
+  "asan_insertion_sort",
+  "smatus_insertion_sort"]
 
 sensitive_ratio = list(range(0, 110, 10))   # 0,10,..100
 runtimes = {}
@@ -34,6 +39,7 @@ for exe in execs[1:]:
 plt.plot(sensitive_ratio, overheads["dfisan_insertion_sort"], label="dfisan", marker='o')
 plt.plot(sensitive_ratio, overheads["dfisan_no_check_unsafe_access_insertion_sort"], label="no unsafe check", marker='v')
 plt.plot(sensitive_ratio, overheads["asan_insertion_sort"], label="asan", marker='x')
+plt.plot(sensitive_ratio, overheads["smatus_insertion_sort"], label="smatus", marker="^")
 # plt.plot(sensitive_ratio, overheads["datashield_insertion_sort"], label="DataShield", marker="v")
 
 plt.xlabel('sensitive ratio')
