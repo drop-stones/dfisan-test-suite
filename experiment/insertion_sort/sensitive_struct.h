@@ -1,9 +1,9 @@
 struct sensitive {
   unsigned id;
-  char *content;
+  // char *content;
 };
 
 struct insensitive {
   unsigned id;
-  char *content;
+  // char *content;
 };
