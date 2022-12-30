@@ -20,7 +20,7 @@ if __name__ == "__main__":
     files.append(str(i) + "_" + config.output_filename)
     command = "lit . -q -o " + files[i]
     print(str(i) + ': ' + command)
-    # os.system(command)
+    os.system(command)
 
   ### Read json files
   json_data = compare.readmulti(files)
