@@ -392,4 +392,5 @@ add_custom_target(check
   USES_TERMINAL
   )
 
-add_subdirectory(experiment)
+# Test for AttackDetection
+enable_testing()
