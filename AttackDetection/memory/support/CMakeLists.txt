@@ -1,7 +1,3 @@
-option(USE_SMATUS "Compile with smatus" OFF)
-set(SMATUS "/home/shizuku/Development/movec/bin/movec")
-
-add_subdirectory(support)
 
 file(GLOB SOURCES
   *.c
@@ -16,9 +12,9 @@ foreach(SOURCE ${SOURCES})
       OUTPUT ${TEST_NAME} ${TEST_NAME}_tmp.c
       COMMAND ${SMATUS} --check-memsafe -c ${SOURCE} -o ${TEST_NAME}_tmp.c
       COMMAND ${CMAKE_COMMAND} -E copy
-        ${CMAKE_CURRENT_SOURCE_DIR}/../movec/_RV_memsafe.c ${CMAKE_CURRENT_BINARY_DIR}/_RV_memsafe.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../movec/_RV_memsafe.c ${CMAKE_CURRENT_BINARY_DIR}/_RV_memsafe.c
       COMMAND ${CMAKE_COMMAND} -E copy
-        ${CMAKE_CURRENT_SOURCE_DIR}/../safe_alloc.h ${CMAKE_CURRENT_BINARY_DIR}/../safe_alloc.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../safe_alloc.h ${CMAKE_CURRENT_BINARY_DIR}/../safe_alloc.h
       COMMAND clang ${TEST_NAME}_tmp.c -o ${TEST_NAME}
     )
   else()
@@ -31,8 +27,8 @@ foreach(SOURCE ${SOURCES})
     COMMAND ${TEST_NAME}
     DEPENDS ${TEST_NAME} ${SOURCE}
   )
-  set_tests_properties(run_${TEST_NAME}
-    PROPERTIES
-      WILL_FAIL TRUE
-  )
+  # set_tests_properties(run_${TEST_NAME}
+  #   PROPERTIES
+  #     WILL_FAIL TRUE
+  # )
 endforeach()

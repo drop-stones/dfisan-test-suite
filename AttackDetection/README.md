@@ -20,6 +20,7 @@ $ cmake -G Ninja \
         ../
 $ ninja -j1 AttackDetection/all
 ```
+
 ## Run
 
 ```bash
