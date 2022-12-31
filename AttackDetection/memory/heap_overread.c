@@ -7,7 +7,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
+#if SAFE_ALLOC
 #include "../safe_alloc.h"
+#else
+#define safe_malloc malloc
+#endif
 
 int main(int argc, char **argv) {
   int *arr = (int *)safe_malloc(sizeof(int) * 10);   // 0x__3c0

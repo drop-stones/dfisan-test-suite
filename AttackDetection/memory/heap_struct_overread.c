@@ -5,7 +5,11 @@
 
 // Tests that dfisan can detect overread in heap struct object.
 
+#if SAFE_ALLOC
 #include "../safe_alloc.h"
+#else
+#define safe_malloc malloc
+#endif
 
 #define SIZE 8
 
