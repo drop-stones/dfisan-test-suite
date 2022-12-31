@@ -41,7 +41,7 @@ plt.plot(sensitive_ratio, overheads["tsan_find_min_max"], label="tsan", marker='
 
 plt.xlabel('sensitive ratio')
 plt.ylabel('overhead')
-plt.title('find max')
+plt.title('find min max')
 
 plt.legend()
 

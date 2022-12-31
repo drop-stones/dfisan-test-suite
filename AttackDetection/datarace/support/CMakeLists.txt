@@ -1,6 +1,3 @@
-option(DFISAN "Compile with dfisan" OFF)
-
-add_subdirectory(support)
 
 file(GLOB SOURCES
   *.c
@@ -16,9 +13,5 @@ foreach(SOURCE ${SOURCES})
     NAME run_${TEST_NAME}
     COMMAND ${TEST_NAME}
     DEPENDS ${TEST_NAME} ${SOURCE}
-  )
-  set_tests_properties(run_${TEST_NAME}
-    PROPERTIES
-      WILL_FAIL TRUE
   )
 endforeach()

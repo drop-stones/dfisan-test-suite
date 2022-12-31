@@ -1,14 +1,30 @@
 ## Build
 
+## dfisan build
+
 ```bash
 $ cmake -G Ninja \
         -DCMAKE_BUILD_TYPE=None \
         -DCMAKE_C_COMPILER=/path/to/clang \
+        -DCMAKE_C_FLAGS="-fsanitize=dfi" \
+        -DDFISAN=ON \
+        ../
+$ ninja tools/timeit
+$ ninja AttackDetection/all
+```
+
+### asan/tsan build
+
+```bash
+$ cmake -G Ninja \
+        -DCMAKE_BUILD_TYPE=None \
+        -DCMAKE_C_COMPILER=clang \
         -DCMAKE_C_FLAGS="-fsanitize=..." \
         ../
 $ ninja tools/timeit
 $ ninja AttackDetection/all
 ```
+
 
 ### smatus build
 
