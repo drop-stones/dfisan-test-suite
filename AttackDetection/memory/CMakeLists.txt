@@ -23,7 +23,9 @@ foreach(SOURCE ${SOURCES})
     )
   else()
     add_executable(${TEST_NAME} ${SOURCE})
-    target_compile_definitions(${TEST_NAME} PRIVATE SAFE_ALLOC)
+    if(DFISAN)
+      target_compile_definitions(${TEST_NAME} PRIVATE SAFE_ALLOC)
+    endif()
   endif()
 
   add_test(

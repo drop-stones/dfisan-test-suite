@@ -1,5 +1,3 @@
-option(DFISAN "Compile with dfisan" OFF)
-
 add_subdirectory(support)
 
 file(GLOB SOURCES
