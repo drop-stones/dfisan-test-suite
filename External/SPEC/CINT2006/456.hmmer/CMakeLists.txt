@@ -32,6 +32,8 @@ test_input(ref retro.hmm retro.out
 
 if(DFISAN)
   dfisan_test_executable(456.hmmer ${Source})
+elseif(SMATUS)
+  smatus_test_executable(456.hmmer ${Source})
 else()
   llvm_test_executable(456.hmmer ${Source})
 endif()

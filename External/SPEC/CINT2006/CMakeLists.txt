@@ -1,12 +1,15 @@
 include(${CMAKE_SOURCE_DIR}/External/SPEC/SpecCPU2006.cmake)
 if(TEST_SUITE_SPEC2006_ROOT)
   cpu2006_subdir(401.bzip2)
-  cpu2006_subdir(429.mcf)
   cpu2006_subdir(445.gobmk)
   cpu2006_subdir(456.hmmer)
-  cpu2006_subdir(458.sjeng)
   cpu2006_subdir(462.libquantum)
-  cpu2006_subdir(464.h264ref)
+
+  if(NOT SMATUS)
+    cpu2006_subdir(429.mcf)     # out-of-memory
+    cpu2006_subdir(458.sjeng)   # out-of-memory
+    cpu2006_subdir(464.h264ref) # compile error: macro expansion
+  endif()
 
   # Skip big projects
   # cpu2006_subdir(400.perlbench)

@@ -32,3 +32,14 @@ cmake -G Ninja \
       -DCMAKE_C_FLAGS="-fsanitize=address" \
       ../
 ```
+
+## smatus build
+
+```bash
+cmake -G Ninja \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_C_COMPILER=clang \
+      -DTEST_SUITE_SPEC2006_ROOT=/path/to/cpu2006 \
+      -DSMATUS=ON \
+      ../
+```

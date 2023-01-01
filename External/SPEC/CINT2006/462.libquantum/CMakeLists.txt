@@ -21,6 +21,8 @@ test_input(ref 1397 8)
 
 if(DFISAN)
   dfisan_test_executable(462.libquantum ${Source})
+elseif(SMATUS)
+  smatus_test_executable(462.libquantum ${Source})
 else()
   llvm_test_executable(462.libquantum ${Source})
 endif()

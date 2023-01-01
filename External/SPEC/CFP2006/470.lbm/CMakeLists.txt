@@ -21,6 +21,8 @@ test_input(ref  3000 reference.dat 0 0 100_100_130_ldc.of)
 
 if(DFISAN)
   dfisan_test_executable(470.lbm ${Source})
+elseif(SMATUS)
+  smatus_test_executable(470.lbm ${Source})
 else()
   llvm_test_executable(470.lbm ${Source})
 endif()

@@ -28,6 +28,8 @@ test_input(ref sss_ main)
 
 if(DFISAN)
   dfisan_test_executable(464.h264ref ${Source})
+elseif(SMATUS)
+  smatus_test_executable(464.h264ref ${Source})
 else()
   llvm_test_executable(464.h264ref ${Source})
 endif()

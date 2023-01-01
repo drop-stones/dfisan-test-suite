@@ -39,6 +39,8 @@ endforeach()
 
 if(DFISAN)
   dfisan_test_executable(482.sphinx3 ${Source})
+elseif(SMATUS)
+  smatus_test_executable(482.sphinx3 ${Source})
 else()
   llvm_test_executable(482.sphinx3 ${Source})
 endif()

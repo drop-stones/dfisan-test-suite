@@ -23,6 +23,8 @@ test_input(ref data/all/input/input.combined 200 input.combined.out)
 
 if(DFISAN)
   dfisan_test_executable(401.bzip2 ${Source})
+elseif(SMATUS)
+  smatus_test_executable(401.bzip2 ${Source})
 else()
   llvm_test_executable(401.bzip2 ${Source})
 endif()

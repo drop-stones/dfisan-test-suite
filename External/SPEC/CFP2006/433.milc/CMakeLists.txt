@@ -21,6 +21,8 @@ test_input(ref)
 
 if(DFISAN)
   dfisan_test_executable(433.milc ${Source})
+elseif(SMATUS)
+  smatus_test_executable(433.milc ${Source})
 else()
   llvm_test_executable(433.milc ${Source})
 endif()
