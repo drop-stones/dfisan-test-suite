@@ -23,11 +23,12 @@ int main(void) {
   shared = 0;
   unsigned nproc = 4;
   pthread_t tid[nproc];
+  unsigned i = 0;
 
-  for (unsigned i = 0; i < nproc; i++)
+  for (i = 0; i < nproc; i++)
     pthread_create(&tid[i], NULL, SlaveStart, NULL);
   
-  for (unsigned i = 0; i < nproc; i++)
+  for (i = 0; i < nproc; i++)
     pthread_join(tid[i], NULL);
   
   shared; // False positve

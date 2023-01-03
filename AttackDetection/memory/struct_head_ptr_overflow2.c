@@ -1,3 +1,5 @@
+// dfisan can detect the sub-object overflow
+
 #include <stdio.h>
 #include <string.h>
 
@@ -7,8 +9,7 @@ struct S {
 };
 
 void Input(char *str) {
-  for (int i = 0; i < 10; i++)
-    str[i] = 'a';
+  memcpy((void *)str, "aaaaaaaaaaaaaaa", 16);
 }
 
 int main(void) {
