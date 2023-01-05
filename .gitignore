@@ -3,10 +3,18 @@
 /test-suite-externals
 *.pyc
 /*build*
-/Splash-3/**/*.c
-/Splash-3/**/*.o
-/Splash-3/**/*.h
-/Splash-3/**/*.bc
+
+/phoenix/**/*_datafiles
+/phoenix/**/*.o
+/phoenix/**/.*
+/phoenix/**/dfisan*
+/phoenix/**/tsan*
 
 phoenix-2.0
 SARD-88
+Splash-3
+
+# /Splash-3/**/*.c
+# /Splash-3/**/*.o
+# /Splash-3/**/*.h
+# /Splash-3/**/*.bc

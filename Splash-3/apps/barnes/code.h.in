@@ -39,6 +39,7 @@ global real eps; 		/* potential softening parameter */
 global real epssq; 		/* square of previous */
 global real dthf; 		/* half time step */
 global long NPROC;		/* Number of Processors */
+// global long NPROC __attribute__((annotate("dfi_protection")));		/* Number of Processors */
 
 global long maxcell;		/* max number of cells allocated */
 global long maxleaf;		/* max number of leaves allocated */

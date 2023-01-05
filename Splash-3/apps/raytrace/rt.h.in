@@ -736,7 +736,7 @@ extern DISPLAY Display;			/* Display parameters.		     */
 extern LIGHT	*lights;			/* Ptr to light list.		     */
 extern INT	nlights;			/* Number of lights in scene.	     */
 
-extern GMEM	*gm;				/* Ptr to global memory structure.   */
+extern GMEM *gm;				/* Ptr to global memory structure.   */
 
 
 

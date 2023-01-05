@@ -107,7 +107,7 @@ DISPLAY Display;			/* Display parameters.		     */
 LIGHT	*lights;			/* Ptr to light list.		     */
 INT	nlights;			/* Number of lights in scene.	     */
 
-GMEM	*gm;				/* Ptr to global memory structure.   */
+GMEM *gm;				/* Ptr to global memory structure.   */
 
 
 
