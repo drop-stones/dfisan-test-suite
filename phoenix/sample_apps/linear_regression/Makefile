@@ -32,10 +32,8 @@
 # Note: This Makefile requires GNU make.
 #------------------------------------------------------------------------------
 
+include ../makefile.env
 # CC = gcc
-CC = wllvm
-DFISAN = /home/shizuku/Development/dfisan/build/bin/clang
-DFISAN_FLAGS = -fsanitize=dfi -mllvm --debug-only=def-use-log
 
 OSTYPE = $(shell uname)
 

@@ -3,7 +3,7 @@
 ## Build
 
 ```bash
-$ make
+$ make DFISAN=/path/to/clang
 ```
 
 ## Run tests

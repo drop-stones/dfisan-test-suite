@@ -15,7 +15,7 @@ add_custom_target(find_max_target ALL
     asan_find_max
     smatus_find_max
     # datashield_find_max
-    run_find_max.py
+    # run_find_max.py
 )
 
 add_custom_command(
@@ -49,8 +49,8 @@ add_custom_command(
 #   OUTPUT datashield_find_max
 #   COMMAND ${DATASHIELD} ${SOURCE} -o datashield_find_max
 # )
-add_custom_command(
-  OUTPUT run_find_max.py
-  COMMAND ${CMAKE_COMMAND} -E copy
-    ${CMAKE_CURRENT_SOURCE_DIR}/run_find_max.py ${CMAKE_CURRENT_BINARY_DIR}/run_find_max.py
-)
+# add_custom_command(
+#   OUTPUT run_find_max.py
+#   COMMAND ${CMAKE_COMMAND} -E copy
+#     ${CMAKE_CURRENT_SOURCE_DIR}/run_find_max.py ${CMAKE_CURRENT_BINARY_DIR}/run_find_max.py
+# )

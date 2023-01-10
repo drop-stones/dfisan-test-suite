@@ -13,7 +13,7 @@ add_custom_target(find_min_max_target ALL
     dfisan_find_min_max
     dfisan_no_check_unsafe_access_find_min_max
     tsan_find_min_max
-    run_find_min_max.py
+    # run_find_min_max.py
 )
 
 add_custom_command(
@@ -36,8 +36,8 @@ add_custom_command(
   OUTPUT tsan_find_min_max
   COMMAND clang -fsanitize=thread ${SOURCE} ${CFLAGS} -o tsan_find_min_max
 )
-add_custom_command(
-  OUTPUT run_find_min_max.py
-  COMMAND ${CMAKE_COMMAND} -E copy
-    ${CMAKE_CURRENT_SOURCE_DIR}/run_find_min_max.py ${CMAKE_CURRENT_BINARY_DIR}/run_find_min_max.py
-)
+# add_custom_command(
+#   OUTPUT run_find_min_max.py
+#   COMMAND ${CMAKE_COMMAND} -E copy
+#     ${CMAKE_CURRENT_SOURCE_DIR}/run_find_min_max.py ${CMAKE_CURRENT_BINARY_DIR}/run_find_min_max.py
+# )

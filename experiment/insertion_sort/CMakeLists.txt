@@ -15,7 +15,7 @@ add_custom_target(insertion_sort_target ALL
     asan_insertion_sort
     smatus_insertion_sort
     # datashield_insertion_sort
-    run_insertion_sort.py
+    # run_insertion_sort.py
 )
 
 add_custom_command(
@@ -49,8 +49,8 @@ add_custom_command(
 #   OUTPUT datashield_insertion_sort
 #   COMMAND ${DATASHIELD} ${SOURCE} -o datashield_insertion_sort
 # )
-add_custom_command(
-  OUTPUT run_insertion_sort.py
-  COMMAND ${CMAKE_COMMAND} -E copy
-    ${CMAKE_CURRENT_SOURCE_DIR}/run_insertion_sort.py ${CMAKE_CURRENT_BINARY_DIR}/run_insertion_sort.py
-)
+# add_custom_command(
+#   OUTPUT run_insertion_sort.py
+#   COMMAND ${CMAKE_COMMAND} -E copy
+#     ${CMAKE_CURRENT_SOURCE_DIR}/run_insertion_sort.py ${CMAKE_CURRENT_BINARY_DIR}/run_insertion_sort.py
+# )
