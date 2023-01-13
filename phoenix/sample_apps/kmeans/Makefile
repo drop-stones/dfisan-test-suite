@@ -81,7 +81,8 @@ kmeans-pthread.bc: kmeans-pthread
 	extract-bc $<
 	
 dfisan_kmeans_pthread: kmeans-pthread.c
-	$(DFISAN) $(DFISAN_FLAGS) $< -o $@ -DFIX_RACE
+#	$(DFISAN) $(DFISAN_FLAGS) $< -o $@ -DFIX_RACE
+	$(DFISAN) $(DFISAN_FLAGS) $< -o $@
 	
 tsan_kmeans_pthread: kmeans-pthread.c
 	$(CLANG) -fsanitize=thread $< -o $@ -DFIX_RACE
