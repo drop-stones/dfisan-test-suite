@@ -8,7 +8,7 @@ all:
 	$(MAKE) -C linear_regression
 	$(MAKE) -C matrix_multiply
 	$(MAKE) -C pca
-# $(MAKE) -C reverse_index
+	$(MAKE) -C reverse_index
 	$(MAKE) -C string_match
 	$(MAKE) -C word_count
 
@@ -18,6 +18,6 @@ clean:
 	$(MAKE) -C linear_regression clean
 	$(MAKE) -C matrix_multiply clean
 	$(MAKE) -C pca clean
-# $(MAKE) -C reverse_index clean
+	$(MAKE) -C reverse_index clean
 	$(MAKE) -C string_match clean
 	$(MAKE) -C word_count clean

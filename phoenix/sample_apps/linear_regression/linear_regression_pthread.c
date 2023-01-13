@@ -146,18 +146,18 @@ int main(int argc, char *argv[])
 	   // CHECK_ERROR(pthread_create(&tid_args[i].tid, &attr, linear_regression_pthread, (void*)&tid_args[i]) != 0);
    }
 
+/* Re-written for SVF to analyze multi-forked threads */
    for(i = 0; i < num_threads; i++) {
-	   pthread_create(&tid_args[i].tid, &attr, linear_regression_pthread, (void*)&tid_args[i]);
-	   // CHECK_ERROR(pthread_create(&tid_args[i].tid, &attr, linear_regression_pthread, (void*)&tid_args[i]) != 0);
+	   CHECK_ERROR(pthread_create(&tid_args[i].tid, &attr, linear_regression_pthread, (void*)&tid_args[i]) != 0);
    }
 
    for (i = 0; i < num_threads; i++)
    {
 	  int ret_val;
-	  pthread_join(tid_args[i].tid, (void **)(void*)&ret_val);
-	  // CHECK_ERROR(pthread_join(tid_args[i].tid, (void **)(void*)&ret_val) != 0);
-	  // CHECK_ERROR(ret_val != 0);
+	  CHECK_ERROR(pthread_join(tid_args[i].tid, (void **)(void*)&ret_val) != 0);
+	  CHECK_ERROR(ret_val != 0);
    }
+/*******************************************************/
 
    long long SX_ll = 0, SY_ll = 0, SXX_ll = 0, SYY_ll = 0, SXY_ll = 0;
 
@@ -165,8 +165,7 @@ int main(int argc, char *argv[])
    for (i = 0; i < num_threads; i++)
    {
 	  // int ret_val;
-	  // pthread_join(tid_args[i].tid, (void **)(void*)&ret_val);
-	  // // CHECK_ERROR(pthread_join(tid_args[i].tid, (void **)(void*)&ret_val) != 0);
+	  // CHECK_ERROR(pthread_join(tid_args[i].tid, (void **)(void*)&ret_val) != 0);
 	  // CHECK_ERROR(ret_val != 0);
 
       SX_ll += tid_args[i].SX;

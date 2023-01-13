@@ -48,8 +48,7 @@ int grid_size;
 int num_procs;
 int next_row;
 
-int /* **matrix, */ **cov;
-int *matrix[DEF_NUM_ROWS] __attribute__((annotate("dfi_protection")));
+int **matrix, **cov;
 int *mean;
 pthread_mutex_t row_lock;
 
@@ -196,7 +195,7 @@ void pthread_mean() {
    CHECK_ERROR((num_procs = sysconf(_SC_NPROCESSORS_ONLN)) <= 0);
    printf("The number of processors is %d\n", num_procs);
 
-   tid = (pthread_t *)MALLOC(num_procs * sizeof(pthread_t));
+   tid = (pthread_t *)safe_malloc(num_procs * sizeof(pthread_t));
    mean_args = (mean_arg_t *)safe_malloc(num_procs * sizeof(mean_arg_t));
    
    /* Thread must be scheduled systemwide */
@@ -265,7 +264,7 @@ int main(int argc, char **argv) {
    parse_args(argc, argv);   
    
    // Create the matrix to store the points
-   // matrix = (int **)malloc(sizeof(int *) * num_rows);
+   matrix = (int **)malloc(sizeof(int *) * num_rows);
    for (i=0; i<num_rows; i++) 
    {
       matrix[i] = (int *)safe_malloc(sizeof(int) * num_cols);
@@ -281,7 +280,7 @@ int main(int argc, char **argv) {
    cov = (int **)malloc(sizeof(int *) * num_rows);
    for (i=0; i<num_rows; i++) 
    {
-      cov[i] = (int *)malloc(sizeof(int) * num_rows);
+      cov[i] = (int *)safe_malloc(sizeof(int) * num_rows);
    }
 
 	 // Compute the mean and the covariance

@@ -526,22 +526,24 @@ int main(int argc, char **argv)
    // Join the arrays
    int num_threads = num_procs / 2;
    int rem_num = num_procs % 2;
-   // link_head_t **final = (link_head_t**)MALLOC(num_procs*sizeof(link_head_t*));
-   link_head_t **final = (link_head_t**)safe_malloc(num_procs*sizeof(link_head_t*));
+   link_head_t **final = (link_head_t**)MALLOC(num_procs*sizeof(link_head_t*));
+   // link_head_t **final = (link_head_t**)safe_malloc(num_procs*sizeof(link_head_t*));
    
    while(num_threads > 0)
    {
       dprintf(stderr, "Merging with %d threads, rem = %d\n", num_threads, rem_num);
 	   for(i=0; i<num_threads; i++)
 	   {
-		   merge_data_t *m_args = (merge_data_t*)safe_malloc(sizeof(merge_data_t));
+		   merge_data_t *m_args = (merge_data_t*)malloc(sizeof(merge_data_t));
+		   // merge_data_t *m_args = (merge_data_t*)safe_malloc(sizeof(merge_data_t));
 		   m_args->length1 = use_len[i*2];
          m_args->length2 = use_len[i*2 + 1];
          m_args->length_out_pos = i;
          m_args->data1 = links[i*2];
          m_args->data2 = links[i*2 + 1];
          int tlen = m_args->length1 + m_args->length2;
-         final[i] = (link_head_t *)safe_malloc(tlen*sizeof(link_head_t));
+         final[i] = (link_head_t *)malloc(tlen*sizeof(link_head_t));
+         // final[i] = (link_head_t *)safe_malloc(tlen*sizeof(link_head_t));
          m_args->out = final[i];
          
 		   CHECK_ERROR(pthread_create(&pid[i], &attr, merge_sections, (void*)m_args) != 0);

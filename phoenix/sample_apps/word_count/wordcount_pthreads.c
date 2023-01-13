@@ -196,6 +196,7 @@ void wordcount_splitter(void *data_in)
          m_args->data2 = words[i*2 + 1];
          int tlen = m_args->length1 + m_args->length2;
          mwords[i] = (wc_count_t*)malloc(tlen*sizeof(wc_count_t));
+         // mwords[i] = (wc_count_t*)safe_malloc(tlen*sizeof(wc_count_t));
          m_args->out = mwords[i];
          
 		   CHECK_ERROR(pthread_create(&tid[i], &attr, merge_sections, (void*)m_args) != 0);

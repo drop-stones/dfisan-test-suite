@@ -42,6 +42,7 @@
 #define IMG_DATA_OFFSET_POS 10
 #define BITS_PER_PIXEL_POS 28
 
+void *safe_malloc(size_t size) { return malloc(size); }
 void *safe_calloc(size_t nmemb, size_t size) { return calloc(nmemb, size); }
 
 int swap;      // to indicate if we need to swap byte order of header information
@@ -211,9 +212,10 @@ int main(int argc, char *argv[]) {
    num_per_thread = num_pixels / num_procs;
    excess = num_pixels % num_procs;
    
-   CHECK_ERROR( (pid = (pthread_t *)malloc(sizeof(pthread_t) * num_procs)) == NULL);
-   CHECK_ERROR( (arg = (thread_arg_t *)calloc(sizeof(thread_arg_t), num_procs)) == NULL);
-   // CHECK_ERROR( (arg = (thread_arg_t *)safe_calloc(sizeof(thread_arg_t), num_procs)) == NULL);
+   // CHECK_ERROR( (pid = (pthread_t *)malloc(sizeof(pthread_t) * num_procs)) == NULL);
+   // CHECK_ERROR( (arg = (thread_arg_t *)calloc(sizeof(thread_arg_t), num_procs)) == NULL);
+   CHECK_ERROR( (pid = (pthread_t *)safe_malloc(sizeof(pthread_t) * num_procs)) == NULL);
+   CHECK_ERROR( (arg = (thread_arg_t *)safe_calloc(sizeof(thread_arg_t), num_procs)) == NULL);
    
    /* Assign portions of the image to each thread */
    long curr_pos = (long)(*data_pos);
@@ -229,6 +231,10 @@ int main(int argc, char *argv[]) {
       arg[i].data_len *= 3;   // 3 bytes per pixel
       curr_pos += arg[i].data_len;
       
+      // pthread_create(&(pid[i]), &attr, calc_hist, (void *)(&(arg[i])));   
+   }
+
+   for (i = 0; i < num_procs; i++) {
       pthread_create(&(pid[i]), &attr, calc_hist, (void *)(&(arg[i])));   
    }
    
@@ -266,11 +272,13 @@ int main(int argc, char *argv[]) {
    CHECK_ERROR(close(fd) < 0);
    
    free(pid);
+   /*
    for(i = 0; i < num_procs; i++) {
       free(arg[i].red);
       free(arg[i].green);
       free(arg[i].blue);
    }
+   */
    free(arg);
    pthread_attr_destroy(&attr);
    
