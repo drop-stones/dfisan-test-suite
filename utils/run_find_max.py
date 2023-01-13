@@ -42,6 +42,7 @@ def plot_runtimes():
   plt.show()
 
 def plot():
+  plt.rcParams["font.size"] = 12
   fig = plt.figure()
   runtime_plot = fig.add_subplot(2, 1, 1)
   mem_plot = fig.add_subplot(2, 1, 2)
@@ -61,8 +62,9 @@ def plot():
   mem_plot.set_ylabel('Memory Overhead')
 
   runtime_plot.legend()
-  mem_plot.legend()
-  plt.show()
+  # mem_plot.legend()
+  # plt.show()
+  plt.savefig('find_max.png')
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()

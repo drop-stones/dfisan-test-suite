@@ -89,7 +89,7 @@ dfisan_hist_pthread: hist-pthread.bc
 #tsan_hist_pthread: hist-pthread.bc
 #	clang -fsanitize=thread $< -o $@
 tsan_hist_pthread: hist-pthread.c
-	clang -fsanitize=thread $< -o $@
+	$(CLANG) -fsanitize=thread $< -o $@
 
 clean:
 	rm -f $(PROGS) *.o *.a *~ *.tmp *.bak *.log .*.bc *.bc *.sqlite3

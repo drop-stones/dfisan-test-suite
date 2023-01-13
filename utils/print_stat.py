@@ -30,14 +30,14 @@ def calc_time_and_memory(filename: str):
   ave_max_mem = ave_max_mem / num_max_mem
   return ave_elapsed, ave_max_mem
 
-def calc_time_and_memory_all(file_list: list[str]):
+def calc_time_and_memory_all(file_list):
   for file in file_list:
     ave_elapsed, ave_max_mem = calc_time_and_memory(file)
     time_list.append(ave_elapsed)
     mem_list.append(ave_max_mem)
   return time_list, mem_list
 
-def print_all(file_list: list[str], comparison_num: int = 1):
+def print_all(file_list, comparison_num: int = 1):
   calc_time_and_memory_all(file_list)
   for i in range(len(file_list)):
     print(file_list[i])

@@ -87,7 +87,7 @@ dfisan_pca_pthread: pca-pthread.bc
 	$(DFISAN) $(DFISAN_FLAGS) $< -o $@
 
 tsan_pca_pthread: pca-pthread.c
-	clang -fsanitize=thread $< -o $@
+	$(CLANG) -fsanitize=thread $< -o $@
 
 clean:
 	rm -f $(PROGS) *.o *.a *~ *.tmp *.bak *.log *.bc .*.bc dfisan_*

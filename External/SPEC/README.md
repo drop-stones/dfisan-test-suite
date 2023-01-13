@@ -12,6 +12,8 @@ $ cmake -G Ninja \
 $ ninja External/all
 ```
 
+- [x] 445.gobmk
+
 ### Compile error
 
 #### 433.milc

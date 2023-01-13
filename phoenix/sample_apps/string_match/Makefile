@@ -60,19 +60,20 @@ PATH_OUT = ./$(OSTYPE)/
 CFLAGS = -Wall $(ARCH)
 LIBS = -lm -lpthread -lrt
 
-STR_MATCH_SER_OBJS = string_match_serial.o
+# STR_MATCH_SER_OBJS = string_match_serial.o
 STR_MATCH_PTHREADS = string_match_pthreads.o
 STR_MATCH_OBJS = string_match.o
 COM_OBJS = MapReduceScheduler.o
 
-PROGS = string_match string_match_serial string_match_pthreads string_match_pthreads.bc dfisan_string_match_pthreads tsan_string_match_pthreads
+PROGS = string_match string_match_pthreads string_match_pthreads.bc dfisan_string_match_pthreads tsan_string_match_pthreads
+# string_match_serial
 
 .PHONY: default clean
 
 all: $(PROGS)
 
-string_match_serial: $(COM_OBJS) $(STR_MATCH_SER_OBJS)
-	$(CC) $(CFLAGS) -o $@ $(COM_OBJS) $(STR_MATCH_SER_OBJS) $(LIBS)
+# string_match_serial: $(COM_OBJS) $(STR_MATCH_SER_OBJS)
+# 	$(CC) $(CFLAGS) -o $@ $(COM_OBJS) $(STR_MATCH_SER_OBJS) $(LIBS)
 	
 string_match_pthreads: $(COM_OBJS) $(STR_MATCH_PTHREADS)
 	$(CC) $(CFLAGS) -o $@ $(COM_OBJS) $(STR_MATCH_PTHREADS) $(LIBS)
@@ -84,7 +85,7 @@ dfisan_string_match_pthreads: string_match_pthreads.bc
 	$(DFISAN) $(DFISAN_FLAGS) $< -o $@
 
 tsan_string_match_pthreads: string_match_pthreads.c MapReduceScheduler.c
-	clang -fsanitize=thread string_match_pthreads.c MapReduceScheduler.c -o $@
+	$(CLANG) -fsanitize=thread string_match_pthreads.c MapReduceScheduler.c -o $@
 	
 string_match: $(COM_OBJS) $(STR_MATCH_OBJS)
 	$(CC) $(CFLAGS) -o $@ $(COM_OBJS) $(STR_MATCH_OBJS) $(LIBS)
