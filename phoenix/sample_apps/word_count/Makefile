@@ -84,7 +84,7 @@ dfisan_wordcount_pthreads: wordcount_pthreads.bc
 	$(DFISAN) $(DFISAN_FLAGS) $< -o $@
 
 tsan_wordcount_pthreads: wordcount_pthreads.c sort_pthreads.c MapReduceScheduler.c
-	clang -fsanitize=thread wordcount_pthreads.c sort_pthreads.c MapReduceScheduler.c -o $@
+	$(CLANG) -fsanitize=thread wordcount_pthreads.c sort_pthreads.c MapReduceScheduler.c -o $@
 	
 wordcount_serial: $(WC_OBJS_SER)
 	$(CC) $(CFLAGS) -o $@ $(WC_OBJS_SER) $(LIBS)

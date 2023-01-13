@@ -1,5 +1,5 @@
 import argparse
-from time_stat import exec_time_command
+from time_stat import exec_time_command_with_asan
 from print_stat import print_all
 
 spec_list = [
@@ -35,7 +35,7 @@ if __name__ == '__main__':
     for spec in spec_list:
       command = 'lit . -q --filter=' + spec 
       output = spec + '.txt'
-      exec_time_command(args.num, output, command)
+      exec_time_command_with_asan(args.num, output, command)
 
   elif args.spec:
     if args.num is None or args.spec is None:
@@ -43,7 +43,7 @@ if __name__ == '__main__':
       exit(1)
 
     command = 'lit . -q --filter=' + args.spec
-    exec_time_command(args.num, args.output, command)
+    exec_time_command_with_asan(args.num, args.output, command)
 
   if args.result:
     print_all(output_list)

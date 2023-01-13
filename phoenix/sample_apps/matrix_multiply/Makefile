@@ -87,7 +87,7 @@ dfisan_matrix_mult_pthreads: matrix_mult_pthreads.bc
 	$(DFISAN) $(DFISAN_FLAGS) $< -o $@
 
 tsan_matrix_mult_pthreads: matrix_mult_pthreads.bc
-	clang -fsanitize=thread $< -o $@
+	$(CLANG) -fsanitize=thread $< -o $@
 
 clean:
 	rm -f $(PROGS) *.o *.a *~ *.tmp *.bak *.log *.bc .*.bc dfisan_*

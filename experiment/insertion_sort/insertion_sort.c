@@ -12,7 +12,7 @@
 #include "../safe_alloc.h"
 #endif
 
-#define ARR_LEN 0xffff
+#define ARR_LEN 0x2ffff
 
 __attribute__((annotate("sensitive"))) struct sensitive dummy;  // for datashield
 void *safe_malloc(size_t size) { return malloc(size); }

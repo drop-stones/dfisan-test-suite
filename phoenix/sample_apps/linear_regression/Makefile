@@ -87,7 +87,7 @@ dfisan_lreg_pthread: lreg-pthread.bc
 	$(DFISAN) $(DFISAN_FLAGS) $< -o $@
 
 tsan_lreg_pthread: linear_regression_pthread.c
-	clang -fsanitize=thread $< -o $@
+	$(CLANG) -fsanitize=thread $< -o $@
 
 clean:
 	rm -f $(PROGS) *.o *.a *~ *.tmp *.bak *.log .*.bc *.bc *.sqlite3

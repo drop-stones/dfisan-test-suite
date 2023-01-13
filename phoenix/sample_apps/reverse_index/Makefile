@@ -84,7 +84,7 @@ dfisan_reverseindex_pthread: reverseindex-pthread.bc
 	$(DFISAN) $(DFISAN_FLAGS) $< -o $@
 
 tsan_reverseindex_pthread: reverseindex-pthread.bc
-	clang -fsanitize=thread $< -o $@
+	$(CLANG) -fsanitize=thread $< -o $@
 
 reverseindex: $(COM_OBJS) $(REV_OBJS)
 	$(CC) $(CFLAGS) -o $@ $(COM_OBJS) $(REV_OBJS) $(LIBS)
