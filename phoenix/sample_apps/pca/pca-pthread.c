@@ -48,7 +48,8 @@ int grid_size;
 int num_procs;
 int next_row;
 
-int **matrix, **cov;
+int /* **matrix, */ **cov;
+int *matrix[DEF_NUM_ROWS] __attribute__((annotate("dfi_protection")));
 int *mean;
 pthread_mutex_t row_lock;
 
@@ -264,10 +265,10 @@ int main(int argc, char **argv) {
    parse_args(argc, argv);   
    
    // Create the matrix to store the points
-   matrix = (int **)malloc(sizeof(int *) * num_rows);
+   // matrix = (int **)malloc(sizeof(int *) * num_rows);
    for (i=0; i<num_rows; i++) 
    {
-      matrix[i] = (int *)malloc(sizeof(int) * num_cols);
+      matrix[i] = (int *)safe_malloc(sizeof(int) * num_cols);
    }
    //Generate random values for all the points in the matrix
    generate_points(matrix, num_rows, num_cols);

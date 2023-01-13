@@ -132,8 +132,8 @@ int main(int argc, char *argv[])
    long long n = (long long) finfo.st_size / sizeof(POINT_T);
 
    req_units = n / num_threads;
-   // tid_args = (lreg_args *)safe_calloc(sizeof(lreg_args), num_procs); 
-   tid_args = (lreg_args *)calloc(sizeof(lreg_args), num_procs); 
+   tid_args = (lreg_args *)safe_calloc(sizeof(lreg_args), num_procs); 
+   // tid_args = (lreg_args *)calloc(sizeof(lreg_args), num_procs); 
 
 	 // Assign a portion of the points for each thread
    for(i = 0; i < num_threads; i++)
@@ -143,7 +143,20 @@ int main(int argc, char *argv[])
 	   if(i == (num_threads - 1))
 			tid_args[i].num_elems = n - i*req_units;
 
-	   CHECK_ERROR(pthread_create(&tid_args[i].tid, &attr, linear_regression_pthread, (void*)&tid_args[i]) != 0);
+	   // CHECK_ERROR(pthread_create(&tid_args[i].tid, &attr, linear_regression_pthread, (void*)&tid_args[i]) != 0);
+   }
+
+   for(i = 0; i < num_threads; i++) {
+	   pthread_create(&tid_args[i].tid, &attr, linear_regression_pthread, (void*)&tid_args[i]);
+	   // CHECK_ERROR(pthread_create(&tid_args[i].tid, &attr, linear_regression_pthread, (void*)&tid_args[i]) != 0);
+   }
+
+   for (i = 0; i < num_threads; i++)
+   {
+	  int ret_val;
+	  pthread_join(tid_args[i].tid, (void **)(void*)&ret_val);
+	  // CHECK_ERROR(pthread_join(tid_args[i].tid, (void **)(void*)&ret_val) != 0);
+	  // CHECK_ERROR(ret_val != 0);
    }
 
    long long SX_ll = 0, SY_ll = 0, SXX_ll = 0, SYY_ll = 0, SXY_ll = 0;
@@ -151,9 +164,10 @@ int main(int argc, char *argv[])
    /* Barrier, wait for all threads to finish */
    for (i = 0; i < num_threads; i++)
    {
-	  int ret_val;
-	  CHECK_ERROR(pthread_join(tid_args[i].tid, (void **)(void*)&ret_val) != 0);
-	  CHECK_ERROR(ret_val != 0);
+	  // int ret_val;
+	  // pthread_join(tid_args[i].tid, (void **)(void*)&ret_val);
+	  // // CHECK_ERROR(pthread_join(tid_args[i].tid, (void **)(void*)&ret_val) != 0);
+	  // CHECK_ERROR(ret_val != 0);
 
       SX_ll += tid_args[i].SX;
       SY_ll += tid_args[i].SY; 

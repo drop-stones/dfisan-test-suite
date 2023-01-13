@@ -146,7 +146,7 @@ void wordcount_splitter(void *data_in)
       length[i] = START_ARRAY_SIZE;
       use_len[i] = 0;
 
-      t_args_t* out = (t_args_t*)malloc(sizeof(t_args_t));
+      t_args_t* out = (t_args_t*)safe_malloc(sizeof(t_args_t));
 	   out->data = &data->fdata[data->fpos];
 
 	   int available_bytes = data->flen - data->fpos;

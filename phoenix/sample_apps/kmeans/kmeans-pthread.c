@@ -47,12 +47,12 @@
 
 void *safe_malloc(size_t size) { return malloc(size); }
 
-int num_points; // number of vectors
-int dim;       // Dimension of each vector
-int num_means; // number of clusters
-int grid_size; // size of each dimension of vector space
-int modified __attribute__((annotate("dfi_protection")));
-int num_pts = 0;
+int num_points __attribute__((annotate("dfi_protection"))); // number of vectors
+int dim        __attribute__((annotate("dfi_protection"))); // Dimension of each vector
+int num_means  __attribute__((annotate("dfi_protection"))); // number of clusters
+int grid_size  __attribute__((annotate("dfi_protection"))); // size of each dimension of vector space
+int modified   __attribute__((annotate("dfi_protection")));
+int num_pts    __attribute__((annotate("dfi_protection"))) = 0;
 
 #ifdef FIX_RACE
 pthread_mutex_t modified_lock;
