@@ -45,6 +45,7 @@
 #define DEFAULT_DISP_NUM 10
 #define START_ARRAY_SIZE 2000
 
+#define MAX_NUM_PROCS 16
 void *safe_malloc(size_t size) { return malloc(size); }
 
 typedef struct {
@@ -125,7 +126,9 @@ void wordcount_splitter(void *data_in)
    int i,num_procs;
 
    CHECK_ERROR((num_procs = sysconf(_SC_NPROCESSORS_ONLN)) <= 0);
-   dprintf("THe number of processors is %d\n\n", num_procs);
+   if (num_procs > MAX_NUM_PROCS)
+      num_procs = MAX_NUM_PROCS;
+   dprintf("The number of processors is %d\n\n", num_procs);
 
    wc_data_t * data = (wc_data_t *)data_in; 
    tid = (pthread_t *)MALLOC(num_procs * sizeof(pthread_t));  

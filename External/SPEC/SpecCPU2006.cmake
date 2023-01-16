@@ -116,8 +116,6 @@ if(TEST_SUITE_SPEC2006_ROOT)
       list(APPEND SOURCES ${SRC_ARG})
       add_custom_command(
         OUTPUT ${SRC_ARG}
-        # COMMAND /home/shizuku/Development/movec/bin/movec ${CFLAGS} ${CXXFLAGS} ${CPPFLAGS} --check-memsafe -c ${ARG} -o ${SRC_ARG}
-        # COMMAND /home/shizuku/Development/movec/bin/movec ${CFLAGS} --check-memsafe -c ${ARG} -o ${SRC_ARG}
         COMMAND /home/shizuku/Development/movec/bin/movec ${CPPFLAGS} --check-memsafe -c ${ARG} -o ${SRC_ARG}
         COMMAND ${CMAKE_COMMAND} -E copy
           ${MEMSAFE_C} ${CMAKE_CURRENT_BINARY_DIR}/_RV_memsafe.c

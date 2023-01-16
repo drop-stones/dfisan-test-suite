@@ -42,28 +42,32 @@ if __name__ == '__main__':
   parser.add_argument('-n', dest='num', type=int)
   parser.add_argument('-o', dest='output', type=str)
   parser.add_argument('--command', type=str)
+  parser.add_argument('--name', type=str)
   parser.add_argument('--all', action='store_const', const=True, default=False)
   parser.add_argument('--result', action='store_const', const=True, default=False)
   args = parser.parse_args()
 
-  if args.all:
+  if args.all or args.name:
     if args.num is None:
       parser.print_help()
       exit(1)
 
+  if args.all or args.name == 'histogram':
     # histogram
     histogram_dir = phoenix_sample_apps_dir + '/histogram/'
     histogram_input_file = histogram_dir + 'histogram_datafiles/large.bmp'
-    exec_time_command(args.num, 'histogram.txt',        histogram_dir + 'hist-pthread '           + histogram_input_file)
-    exec_time_command(args.num, 'tsan_histogram.txt',   histogram_dir + 'tsan_histogram_pthread ' + histogram_input_file)
-    exec_time_command(args.num, 'dfisan_histogram.txt', histogram_dir + 'dfisan_hist_pthread '    + histogram_input_file)
+    exec_time_command(args.num, 'histogram.txt',        histogram_dir + 'hist-pthread '        + histogram_input_file)
+    exec_time_command(args.num, 'tsan_histogram.txt',   histogram_dir + 'tsan_hist_pthread '   + histogram_input_file)
+    exec_time_command(args.num, 'dfisan_histogram.txt', histogram_dir + 'dfisan_hist_pthread ' + histogram_input_file)
 
+  if args.all or args.name == 'kmeans':
     # kmeans
     kmeans_dir = phoenix_sample_apps_dir + '/kmeans/'
     exec_time_command(args.num, 'kmeans.txt',        kmeans_dir + 'kmeans-pthread -d 10 -c 10000 -p 10000 -s 10000')
     exec_time_command(args.num, 'tsan_kmeans.txt',   kmeans_dir + 'tsan_kmeans_pthread -d 10 -c 10000 -p 10000 -s 10000')
-    exec_time_command(args.num, 'dfisan_kmeans.txt', kmeans_dir + 'dfisan_kmeans_pthread -d 10 -c 1000 -p 10000 -s 10000')
+    exec_time_command(args.num, 'dfisan_kmeans.txt', kmeans_dir + 'dfisan_kmeans_pthread -d 10 -c 10000 -p 10000 -s 10000')
 
+  if args.all or args.name == 'linear_regression':
     # linear_regression
     linear_regression_dir = phoenix_sample_apps_dir + '/linear_regression/'
     linear_regression_input_file = linear_regression_dir + 'linear_regression_datafiles/key_file_500MB.txt'
@@ -71,6 +75,7 @@ if __name__ == '__main__':
     exec_time_command(args.num, 'tsan_linear_regression.txt',   linear_regression_dir + 'tsan_lreg_pthread '   + linear_regression_input_file)
     exec_time_command(args.num, 'dfisan_linear_regression.txt', linear_regression_dir + 'dfisan_lreg_pthread ' + linear_regression_input_file)
 
+  if args.all or args.name == 'pca':
     # pca
     pca_dir = phoenix_sample_apps_dir + '/pca/'
     exec_time_command(args.num, 'pca.txt',        pca_dir + 'pca-pthread -r 1000 -c 1000 -s 1000')
@@ -84,6 +89,7 @@ if __name__ == '__main__':
     # exec_time_command(args.num, 'tsan_reverse_index.txt',   reverse_index_dir + 'tsan_reverseindex_pthread ' +   reverse_index_input_file)
     # exec_time_command(args.num, 'dfisan_reverse_index.txt', reverse_index_dir + 'dfisan_reverseindex_pthread ' + reverse_index_input_file)
 
+  if args.all or args.name == 'string_match':
     # string_match
     string_match_dir = phoenix_sample_apps_dir + '/string_match/'
     string_match_input_file = string_match_dir + 'string_match_datafiles/key_file_500MB.txt'
@@ -91,6 +97,7 @@ if __name__ == '__main__':
     exec_time_command(args.num, 'tsan_string_match.txt',   string_match_dir + 'tsan_string_match_pthreads '   + string_match_input_file)
     exec_time_command(args.num, 'dfisan_string_match.txt', string_match_dir + 'dfisan_string_match_pthreads ' + string_match_input_file)
 
+  if args.all or args.name == 'word_count':
     # word_count
     word_count_dir = phoenix_sample_apps_dir + '/word_count/'
     word_count_input_file = word_count_dir + 'word_count_datafiles/word_100MB.txt'
@@ -102,7 +109,6 @@ if __name__ == '__main__':
     if args.num is None or args.command is None:
       parser.print_help()
       exit(1)
-
     exec_time_command(args.num, args.output, args.command)
 
   if args.result:

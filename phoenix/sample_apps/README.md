@@ -8,6 +8,9 @@ $ make DFISAN=/path/to/clang CLANG=/path/to/clang
 
 ## Protection targets
 
+提案手法が利用する`dlmalloc`で発生するsegmentation faultを防ぐため，
+スレッド数`num_procs`を最大16個に制限．
+
 ### histogram
 
 - hit-pthread.c: `int main(int argc, char *argv[])`

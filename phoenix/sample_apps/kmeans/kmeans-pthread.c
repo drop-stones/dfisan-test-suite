@@ -45,6 +45,7 @@
 #define false 0
 #define true 1
 
+#define MAX_NUM_PROCS 16
 void *safe_malloc(size_t size) { return malloc(size); }
 
 int num_points __attribute__((annotate("dfi_protection"))); // number of vectors
@@ -295,6 +296,9 @@ int main(int argc, char **argv)
    pthread_attr_init(&attr);
    pthread_attr_setscope(&attr, PTHREAD_SCOPE_SYSTEM);
    CHECK_ERROR((num_procs = sysconf(_SC_NPROCESSORS_ONLN)) <= 0);
+   if (num_procs > MAX_NUM_PROCS)
+      num_procs = MAX_NUM_PROCS;
+   printf("Num procs = %d\n", num_procs);
       
    CHECK_ERROR( (pid = (pthread_t *)malloc(sizeof(pthread_t) * num_procs)) == NULL);
    
@@ -337,6 +341,7 @@ int main(int argc, char **argv)
       curr_point = 0;
       num_threads = 0;
       while (curr_point < num_means) {
+         // CHECK_ERROR((arg = (thread_arg *)malloc(sizeof(thread_arg))) == NULL);
          CHECK_ERROR((arg = (thread_arg *)safe_malloc(sizeof(thread_arg))) == NULL);
          arg->start_idx = curr_point;
          arg->sum = (int *)malloc(dim * sizeof(int));

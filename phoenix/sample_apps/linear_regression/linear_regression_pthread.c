@@ -40,6 +40,7 @@
 
 #include "stddefines.h"
 
+#define MAX_NUM_PROCS 16
 void *safe_calloc(size_t nmemb, size_t size) { return CALLOC(nmemb, size); }
 
 typedef struct {
@@ -118,6 +119,8 @@ int main(int argc, char *argv[])
       PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0)) == NULL);
 
    CHECK_ERROR((num_procs = sysconf(_SC_NPROCESSORS_ONLN)) <= 0);
+   if (num_procs > MAX_NUM_PROCS)
+      num_procs = MAX_NUM_PROCS;
    printf("The number of processors is %d\n\n", num_procs);
 
    pthread_attr_init(&attr);
