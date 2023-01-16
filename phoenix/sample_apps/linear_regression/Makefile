@@ -83,7 +83,7 @@ lreg-pthread: $(L_REG_PTHREAD_OBJS)
 lreg-pthread.bc: lreg-pthread
 	extract-bc $<
 
-dfisan_lreg_pthread: lreg-pthread.bc
+dfisan_lreg_pthread: linear_regression_pthread.c
 	$(DFISAN) $(DFISAN_FLAGS) $< -o $@
 
 tsan_lreg_pthread: linear_regression_pthread.c

@@ -48,7 +48,6 @@
 #define MAX_REC_LEN 1024
 #define OFFSET 5
 
-#define MAX_NUM_PROCS 16
 void *safe_malloc(size_t size) { return malloc(size); }
 
 typedef struct {
@@ -143,8 +142,6 @@ void string_match_splitter(void *data_in)
    int i, num_procs;
 
    CHECK_ERROR((num_procs = sysconf(_SC_NPROCESSORS_ONLN)) <= 0);
-   if (num_procs > MAX_NUM_PROCS)
-      num_procs = MAX_NUM_PROCS;
    printf("THe number of processors is %d\n", num_procs);
 
    str_data_t * data = (str_data_t *)data_in; 

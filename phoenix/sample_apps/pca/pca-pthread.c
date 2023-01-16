@@ -40,7 +40,6 @@
 #define DEF_NUM_ROWS 10
 #define DEF_NUM_COLS 10
 
-#define MAX_NUM_PROCS 16
 void *safe_malloc(size_t size) { return malloc(size); }
 
 int num_rows;
@@ -194,8 +193,6 @@ void pthread_mean() {
    mean_arg_t *mean_args;
 
    CHECK_ERROR((num_procs = sysconf(_SC_NPROCESSORS_ONLN)) <= 0);
-   if (num_procs > MAX_NUM_PROCS)
-      num_procs = MAX_NUM_PROCS;
    printf("The number of processors is %d\n", num_procs);
 
    tid = (pthread_t *)safe_malloc(num_procs * sizeof(pthread_t));

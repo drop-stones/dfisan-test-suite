@@ -42,7 +42,6 @@
 #define IMG_DATA_OFFSET_POS 10
 #define BITS_PER_PIXEL_POS 28
 
-#define MAX_NUM_PROCS 16
 void *safe_malloc(size_t size) { return malloc(size); }
 void *safe_calloc(size_t nmemb, size_t size) { return calloc(nmemb, size); }
 
@@ -210,8 +209,6 @@ int main(int argc, char *argv[]) {
    pthread_attr_setscope(&attr, PTHREAD_SCOPE_SYSTEM);
    
    CHECK_ERROR((num_procs = sysconf(_SC_NPROCESSORS_ONLN)) <= 0);
-   if (num_procs > MAX_NUM_PROCS)
-      num_procs = MAX_NUM_PROCS;
    printf("Num procs = %d\n", num_procs);
    num_per_thread = num_pixels / num_procs;
    excess = num_pixels % num_procs;
