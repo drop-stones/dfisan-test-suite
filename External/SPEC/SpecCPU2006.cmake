@@ -102,40 +102,8 @@ if(TEST_SUITE_SPEC2006_ROOT)
   # Create a new executable protected by smatus
   function(smatus_test_executable target)
     message("Smatus Target: ${target}")
-    message("source directory: ${CMAKE_CURRENT_SOURCE_DIR}")
-    message("binary directory: ${CMAKE_CURRENT_BINARY_DIR}")
+    list(FILTER ARGN EXCLUDE REGEX _RV_memsafe.c)
 
-    set(MEMSAFE_C "${CMAKE_SOURCE_DIR}/External/SPEC/movec/_RV_memsafe.c")
-    message("memsafe.c: ${MEMSAFE_C}")
-
-    set(SOURCES)
-    foreach (ARG ${ARGN})
-      message("ARG: ${ARG}")
-      get_filename_component(ARG_NAME ${ARG} NAME_WE)
-      set(SRC_ARG ${CMAKE_CURRENT_BINARY_DIR}/${ARG_NAME}.c)
-      list(APPEND SOURCES ${SRC_ARG})
-      add_custom_command(
-        OUTPUT ${SRC_ARG}
-        COMMAND /home/shizuku/Development/movec/bin/movec ${CPPFLAGS} --check-memsafe -c ${ARG} -o ${SRC_ARG}
-        COMMAND ${CMAKE_COMMAND} -E copy
-          ${MEMSAFE_C} ${CMAKE_CURRENT_BINARY_DIR}/_RV_memsafe.c
-      )
-    endforeach()
-
-    llvm_test_executable(${target} ${SOURCES})
-
-    # add_custom_command(
-    #   TARGET ${target}
-    #   PRE_BUILD
-    #   COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/*.h ${CMAKE_CURRENT_BINARY_DIR}
-    # )
-
-    # foreach (SRC ${SOURCES})
-    #   message("SRC: ${SRC}")
-    # endforeach()
-    message("CFLAGS: ${CFLAGS}")
-    message("CXXFLAGS: ${CXXFLAGS}")
-    message("CPPFLAGS: ${CPPFLAGS}")
-    message("COMPILE_FLAGS: ${COMPILE_FLAGS}")
+    llvm_test_executable(${target} ${ARGN})
   endfunction()
 endif()

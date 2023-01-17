@@ -4,10 +4,8 @@ if(TEST_SUITE_SPEC2006_ROOT)
   # cpu2006_subdir(447.dealII)
   # cpu2006_subdir(450.soplex)
   # cpu2006_subdir(453.povray)
+  cpu2006_subdir(433.milc)
   cpu2006_subdir(470.lbm)
 
-  if(NOT SMATUS)
-    cpu2006_subdir(433.milc)  # compile error: no named or undefined variables
-  endif()
   # cpu2006_subdir(482.sphinx3) # return value is not expected...
 endif()
