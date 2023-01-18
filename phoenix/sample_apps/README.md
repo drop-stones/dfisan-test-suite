@@ -45,6 +45,13 @@ $ make DFISAN=/path/to/clang CLANG=/path/to/clang
   - 198: `tid = (pthread_t *)MALLOC(num_procs * sizeof(pthread_t))`
   - 199: `mean_args = (mean_arg_t *)MALLOC(num_procs * sizeof(mean_arg_t))`
 
+### reverse_index
+
+- reverseindex-pthread.c: `int main(int argc, char **argv)`
+  - 502: `pid = (pthread_t *)malloc(sizeof(pthread_t) * num_procs)`
+  - 531: `link_head_t **final = (link_head_t**)MALLOC(num_procs * sizeof(link_head_t*))`
+  - 539: `merge_data_t *m_args = (merge_data_t*)malloc(sizeof(merge_data_t))`
+
 ### string_match
 
 - string_match_pthreads.c: `void string_match_splitter(void *data_in)`
@@ -62,23 +69,6 @@ $ make DFISAN=/path/to/clang CLANG=/path/to/clang
   - (198: `mwords[i] = (wc_count_t*)malloc(tlen*sizeof(wc_count_t))`)
 - wordcount_pthread.c: `int main(int argc, char *argv[])`
   - 434: `wc_data_t wc_data`
-
-### reverse_index (no support)
-
-At runtime, `IOT instruction (core dumped)`
-
-Stack trace: `dlmalloc:mspace_malloc()`が原因か
-```
-#0  __pthread_kill_implementation (threadid=<optimized out>, signo=signo@entry=6, no_tid=no_tid@entry=0) at pthread_kill.c:44
-#1  0x00007f37db82b6b3 in __pthread_kill_internal (signo=6, threadid=<optimized out>) at pthread_kill.c:78
-#2  0x00007f37db7db958 in __GI_raise (sig=sig@entry=6) at ../sysdeps/posix/raise.c:26
-#3  0x00007f37db7c553d in __GI_abort () at abort.c:79
-#4  0x000000000051abec in mspace_malloc ()
-#5  0x000000000051f22c in insert_sorted ()
-#6  0x0000000000520005 in getlinks ()
-#7  0x00007f37db8298fd in start_thread (arg=<optimized out>) at pthread_create.c:442
-#8  0x00007f37db8aba60 in clone3 () at ../sysdeps/unix/sysv/linux/x86_64/clone3.S:81
-```
 
 ### matrix_multiply
 

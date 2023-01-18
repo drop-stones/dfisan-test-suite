@@ -80,10 +80,10 @@ reverseindex-pthread: $(REV_PTHREAD_OBJS)
 reverseindex-pthread.bc: reverseindex-pthread
 	extract-bc $<
 
-dfisan_reverseindex_pthread: reverseindex-pthread.bc
+dfisan_reverseindex_pthread: reverseindex-pthread.c
 	$(DFISAN) $(DFISAN_FLAGS) $< -o $@
 
-tsan_reverseindex_pthread: reverseindex-pthread.bc
+tsan_reverseindex_pthread: reverseindex-pthread.c
 	$(CLANG) -fsanitize=thread $< -o $@
 
 reverseindex: $(COM_OBJS) $(REV_OBJS)

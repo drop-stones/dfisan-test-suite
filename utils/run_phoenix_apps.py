@@ -24,9 +24,9 @@ file_list = [
   'tsan_pca.txt',
   'dfisan_pca.txt',
 
-  # 'reverse_index.txt',
-  # 'tsan_reverse_index.txt',
-  # 'dfisan_reverse_index.txt',
+  'reverse_index.txt',
+  'tsan_reverse_index.txt',
+  'dfisan_reverse_index.txt',
 
   'string_match.txt',
   'tsan_string_match.txt',
@@ -82,12 +82,13 @@ if __name__ == '__main__':
     exec_time_command(args.num, 'tsan_pca.txt',   pca_dir + 'tsan_pca_pthread -r 1000 -c 1000 -s 1000')
     exec_time_command(args.num, 'dfisan_pca.txt', pca_dir + 'dfisan_pca_pthread -r 1000 -c 1000 -s 1000')
 
+  if args.all or args.name == 'reverse_index':
     # reverse_index
-    # reverse_index_dir = phoenix_sample_apps_dir + '/reverse_index/'
-    # reverse_index_input_file = reverse_index_dir + 'reverse_index_datafiles/'
-    # exec_time_command(args.num, 'reverse_index.txt',        reverse_index_dir + 'reverseindex-pthread ' +        reverse_index_input_file)
-    # exec_time_command(args.num, 'tsan_reverse_index.txt',   reverse_index_dir + 'tsan_reverseindex_pthread ' +   reverse_index_input_file)
-    # exec_time_command(args.num, 'dfisan_reverse_index.txt', reverse_index_dir + 'dfisan_reverseindex_pthread ' + reverse_index_input_file)
+    reverse_index_dir = phoenix_sample_apps_dir + '/reverse_index/'
+    reverse_index_input_file = reverse_index_dir + 'reverse_index_datafiles/'
+    exec_time_command(args.num, 'reverse_index.txt',        reverse_index_dir + 'reverseindex-pthread '        + reverse_index_input_file)
+    exec_time_command(args.num, 'tsan_reverse_index.txt',   reverse_index_dir + 'tsan_reverseindex_pthread '   + reverse_index_input_file)
+    exec_time_command(args.num, 'dfisan_reverse_index.txt', reverse_index_dir + 'dfisan_reverseindex_pthread ' + reverse_index_input_file)
 
   if args.all or args.name == 'string_match':
     # string_match
