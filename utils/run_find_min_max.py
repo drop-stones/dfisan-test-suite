@@ -27,16 +27,18 @@ def calc_overhead(exe: str, base: str):
     mem_usage_overheads[exe].append(mem_usages[exe][i] / mem_usages[base][i])
 
 def plot_runtimes():
+  plt.figure(figsize=(6,4))
   plt.plot(sensitive_ratio, runtime_overheads['dfisan_find_min_max'], label='SafeFlow', marker='o')
-  plt.plot(sensitive_ratio, runtime_overheads['dfisan_no_check_unsafe_access_find_min_max'], label='no unsafe check', marker='v')
-  plt.plot(sensitive_ratio, runtime_overheads['tsan_find_min_max'], label='tsan', marker='x')
+  # plt.plot(sensitive_ratio, runtime_overheads['dfisan_no_check_unsafe_access_find_min_max'], label='no unsafe check', marker='v')
+  plt.plot(sensitive_ratio, runtime_overheads['tsan_find_min_max'], label='tsan', color='tab:green', marker='x')
 
   plt.xlabel('Sensitive Ratio')
   plt.ylabel('Runtime Overhead')
-  plt.title('Find Min Max')
+  # plt.title('Find Min Max')
 
   plt.legend()
-  plt.show()
+  plt.savefig('find_min_max.png')
+  # plt.show()
 
 def plot():
   plt.rcParams["font.size"] = 12

@@ -27,18 +27,21 @@ def calc_overhead(exe: str, base: str):
     mem_usage_overheads[exe].append(mem_usages[exe][i] / mem_usages[base][i])
 
 def plot_runtimes():
+  plt.figure(figsize=(6,4))
   plt.plot(sensitive_ratio, runtime_overheads['dfisan_insertion_sort'], label='SafeFlow', marker='o')
-  plt.plot(sensitive_ratio, runtime_overheads['dfisan_no_check_unsafe_access_insertion_sort'], label='no unsafe check', marker='v')
-  plt.plot(sensitive_ratio, runtime_overheads['asan_insertion_sort'], label='asan', marker='x')
-  plt.plot(sensitive_ratio, runtime_overheads['smatus_insertion_sort'], label='smatus', marker='^')
+  # plt.plot(sensitive_ratio, runtime_overheads['dfisan_no_check_unsafe_access_insertion_sort'], label='no unsafe check', marker='v')
+  plt.plot(sensitive_ratio, runtime_overheads['asan_insertion_sort'], label='asan', color='tab:green', marker='x')
+  plt.plot(sensitive_ratio, runtime_overheads['smatus_insertion_sort'], label='smatus', color='tab:red', marker='^')
   # plt.plot(sensitive_ratio, runtime_overheads['datashield_insertion_sort'], label='DataShield', marker='v')
 
-  plt.xlabel('Sensitive Ratio')
+  plt.xlabel('Sensitive Ratio (%)')
   plt.ylabel('Runtime Overhead')
-  plt.title('Insertion Sort')
+  # plt.title('Insertion Sort')
+  plt.ylim(1,5.2)
 
   plt.legend()
-  plt.show()
+  # plt.show()
+  plt.savefig('insertion_sort.png')
 
 def plot():
   # plt.rcParams["font.size"] = 10

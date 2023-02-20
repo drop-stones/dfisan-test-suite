@@ -74,8 +74,15 @@ if(TEST_SUITE_SPEC2006_ROOT)
     set(dfi-target "dfi-${target}")
     set(options "-mllvm" "--debug-only=def-use-log") # Output def-use to sqlite3
     set(options ${options} "-mllvm" "-stats" "-mllvm" "-stats-json" "-mllvm" "-info-output-file=${target}.json") # Output statistics to json file
+    set(options "-mllvm" "-data-race-detection=false")
     if (UNALIGNED_REGION_ONLY)
       set(options ${options} "-mllvm" "-unaligned-region-only")
+    endif()
+    if (PROTECT_ALL)
+      set(options ${options} "-mllvm" "-protect-all" "-mllvm" "-no-check-unsafe-access")
+    endif()
+    if (NO_ERROR_REPORT)
+      set(options ${options} "-mllvm" "-no-error-report")
     endif()
     message(STATUS "options: ${options}")
     add_custom_command(
