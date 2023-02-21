@@ -1,8 +1,3 @@
-// RUN: %clang_dfisan %s -o %t
-// RUN: !%run %t
-//
-// REQUIRES: x86_64-target-arch
-
 // Dfisan gives a false alarm because `shared` accesses is not protected by same locks.
 
 #include "test.h"

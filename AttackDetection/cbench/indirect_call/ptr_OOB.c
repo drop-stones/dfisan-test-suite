@@ -79,7 +79,6 @@ struct FuncPtr {
 
 // the struct aligns the function pointer arrays
 // so indexing past the end will reliably call working function pointers
-/*
 static struct FuncPtr fptr1 = {
     .correct_func = {Foo},
     .same_type_func = {SameTypeFunc1},
@@ -99,7 +98,6 @@ static struct FuncPtr fptr2 = {
     .less_arg_func = {LessArgFunc2},
     .void_arg_func = {VoidArgFunc2},
 };
-*/
 
 int main(int argc, const char *argv[]) {
   printf("In %s\n", __FUNCTION__);
@@ -119,14 +117,6 @@ int main(int argc, const char *argv[]) {
     return 1;
   }
 */
-  struct FuncPtr fptr1 __attribute__((annotate("dfi_protection")));
-  fptr1.correct_func[0] = Foo;
-  fptr1.same_type_func[0] = SameTypeFunc1;
-  fptr1.diff_arg_func[0] = DiffArgFunc1;
-  fptr1.diff_ret_func[0] = DiffRetFunc1;
-  fptr1.more_arg_func[0] = MoreArgFunc1;
-  fptr1.less_arg_func[0] = LessArgFunc1;
-  fptr1.void_arg_func[0] = VoidArgFunc1;
 
   printf("Calling a function:\n");
   // int idx = argv[1][0] - '0';

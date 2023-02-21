@@ -1,7 +1,9 @@
 #include <stdio.h>
 
-int x __attribute__((annotate("dfi_protection"))) = 100;  // 0x__3f0
-int arr[8] __attribute__((annotate("dfi_protection")));   // 0x__3c0
+// int x __attribute__((annotate("dfi_protection"))) = 100;  // 0x__3f0
+// int arr[8] __attribute__((annotate("dfi_protection")));   // 0x__3c0
+int x = 100;
+int arr[8];
 
 int main(void) {
   printf("arr = 0x%zx\n", (size_t)arr);

@@ -1,9 +1,4 @@
-#if SAFE_ALLOC
-#include "../../safe_alloc.h"
-#else
 #include <stdlib.h>
-#define safe_malloc malloc
-#endif
 
 struct Array {
   char arr[8];
@@ -11,13 +6,14 @@ struct Array {
 };
 
 void *malloc_wrapper(size_t size) {
-#if SAFE_ALLOC
+#if DFISAN
   // dfisan cannot compile this code...
   // return safe_malloc(size);
   exit(1);
-#endif
-
+  return NULL;
+#else
   return malloc(size);
+#endif
 }
 
 int main(void) {

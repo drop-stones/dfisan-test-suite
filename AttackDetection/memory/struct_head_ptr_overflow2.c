@@ -14,7 +14,8 @@ void Input(char *str) {
 
 int main(void) {
   int x = 100;
-  struct S s __attribute__((annotate("dfi_protection"))) = { "init", &x };
+  // struct S s __attribute__((annotate("dfi_protection"))) = { "init", &x };
+  struct S s = { "init", &x };
 
   printf("Before: s.ptr = %p\n", (void *)s.ptr);
   printf("\ts.str = %s\n", s.str);

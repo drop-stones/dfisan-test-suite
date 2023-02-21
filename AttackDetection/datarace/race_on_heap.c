@@ -1,8 +1,3 @@
-// RUN: %clang_dfisan %s -o %t
-// RUN: !%run %t
-//
-// REQUIRES: x86_64-target-arch
-
 #include <pthread.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -24,8 +19,10 @@ __attribute__((noinline)) void *alloc() {
   // dfisan cannot compile it
   // return safe_malloc(99);
   exit(0);
-#endif
+  return NULL;
+#else
   return malloc(99);
+#endif
 }
 
 void *AllocThread(void* arg) {

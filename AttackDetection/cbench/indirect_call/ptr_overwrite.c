@@ -74,19 +74,15 @@ int main(int argc, const char *argv[]) {
 
   printf("In %s\n", __FUNCTION__);
 
-  Fptr ptr __attribute__((annotate("dfi_protection"))) = Foo;
+  // Fptr ptr __attribute__((annotate("dfi_protection"))) = Foo;
+  Fptr ptr = Foo;
   char name[8];
 	printf("ptr is %p\n",&ptr);
 	printf("name is %p\n",name);
   // buffer overflow
   printf("plz input your name:\n");
   // read(0, name, 0x20);
-// #if SAFE_ALLOC
   overwrite(&name[0], (char *)&ptr);
-// #else
-//  for (int i = 0; i < 0x20; i++)
-//    name[i] = 'a';
-// #endif
 
   ptr(0, 0);
 

@@ -68,7 +68,8 @@ int excute(void) {
   // scanf("%uld", &data_len);
   data_len = -1;
   len = data_len + 0x10;
-  Fptr ptr __attribute__((annotate("dfi_protection"))) = Foo;
+  // Fptr ptr __attribute__((annotate("dfi_protection"))) = Foo;
+  Fptr ptr = Foo;
   char name[len];
   // If the compiler version is too low, use the following line instead
   // char name[0x10];

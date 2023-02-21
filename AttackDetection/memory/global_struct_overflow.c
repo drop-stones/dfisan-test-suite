@@ -1,11 +1,10 @@
-
 #define SIZE 8
 
 struct Array {
   char arr[SIZE];
   int id;
 };
-struct Array a __attribute__((annotate("dfi_protection")));
+struct Array a;
 
 int main(int argc, char **argv) {
   a.id = 100;

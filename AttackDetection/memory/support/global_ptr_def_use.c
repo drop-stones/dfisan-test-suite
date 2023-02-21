@@ -1,9 +1,11 @@
-#if SAFE_ALLOC
-#include "../../safe_alloc.h"
-#else
+// #if SAFE_ALLOC
+// #include "../../safe_alloc.h"
+// #else
+// #include <stdlib.h>
+// #define safe_malloc malloc
+// #endif
+
 #include <stdlib.h>
-#define safe_malloc malloc
-#endif
 
 int *arr;
 
@@ -12,7 +14,8 @@ void set200(void) {
 }
 
 int main(void) {
-  arr = (int *)safe_malloc(sizeof(int) * 10);
+  // arr = (int *)safe_malloc(sizeof(int) * 10);
+  arr = (int *)malloc(sizeof(int) * 10);
 
   arr[0] = 100;
 

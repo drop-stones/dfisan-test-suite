@@ -1,6 +1,10 @@
 option(USE_SMATUS "Compile with smatus" OFF)
 set(SMATUS "/home/shizuku/Development/movec/bin/movec")
 
+if (DFISAN)
+  add_compile_options(-mllvm -protect-all)
+endif()
+
 add_subdirectory(support)
 
 file(GLOB SOURCES
@@ -15,17 +19,15 @@ foreach(SOURCE ${SOURCES})
     add_custom_command(
       OUTPUT ${TEST_NAME} ${TEST_NAME}_tmp.c
       COMMAND ${SMATUS} --check-memsafe -c ${SOURCE} -o ${TEST_NAME}_tmp.c
-      COMMAND ${CMAKE_COMMAND} -E copy
+      # COMMAND ${CMAKE_COMMAND} -E copy
+      COMMAND cp
         ${CMAKE_CURRENT_SOURCE_DIR}/../movec/_RV_memsafe.c ${CMAKE_CURRENT_BINARY_DIR}/_RV_memsafe.c
-      COMMAND ${CMAKE_COMMAND} -E copy
-        ${CMAKE_CURRENT_SOURCE_DIR}/../safe_alloc.h ${CMAKE_CURRENT_BINARY_DIR}/../safe_alloc.h
+      COMMAND cp
+        ${CMAKE_CURRENT_SOURCE_DIR}/../movec/_RV_memsafe.h ${CMAKE_CURRENT_BINARY_DIR}/_RV_memsafe.h
       COMMAND clang ${TEST_NAME}_tmp.c -o ${TEST_NAME}
     )
   else()
     add_executable(${TEST_NAME} ${SOURCE})
-    if(DFISAN)
-      target_compile_definitions(${TEST_NAME} PRIVATE SAFE_ALLOC)
-    endif()
   endif()
 
   add_test(

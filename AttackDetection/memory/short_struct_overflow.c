@@ -1,8 +1,3 @@
-// RUN: %clang_dfisan %s -o %t
-// RUN: !%run %t
-//
-// REQUIRES: x86_64-target-arch
-
 // Tests that dfisan can detect buffer overflow in short.
 
 struct ShortSet {
@@ -11,7 +6,8 @@ struct ShortSet {
 };
 
 int main(int argc, char **argv) {
-  struct ShortSet ss __attribute__((annotate("dfi_protection")));
+  // struct ShortSet ss __attribute__((annotate("dfi_protection")));
+  struct ShortSet ss;
   ss.s1 = 100;
   ss.s0[1] = 200;   // overwrite ss.s1
 

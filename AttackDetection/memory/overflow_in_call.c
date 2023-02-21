@@ -1,8 +1,3 @@
-// RUN: %clang_dfisan %s -o %t
-// RUN: !%run %t
-//
-// REQUIRES: x86_64-target-arch
-
 // Tests that dfisan can detect buffer overflow in another funcs.
 // Limitations: dfisan cannot protect system data (e.g., return address, malloc metadata)
 
@@ -15,8 +10,10 @@ void nullify40bytes(char *str) {
 
 int main(void) {
   char buf[40];
-  char str[8] __attribute__((annotate("dfi_protection")));
-  int x __attribute__((annotate("dfi_protection"))) = 100;
+  // char str[8] __attribute__((annotate("dfi_protection")));
+  // int x __attribute__((annotate("dfi_protection"))) = 100;
+  char str[8];
+  int x = 100;
   char buf2[40];
 
   printf("&x = %p\n", (void *)&x);

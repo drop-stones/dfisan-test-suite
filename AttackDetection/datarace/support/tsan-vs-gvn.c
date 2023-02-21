@@ -1,8 +1,3 @@
-// RUN: %clang_dfisan %s -o %t
-// RUN: %run %t
-//
-// REQUIRES: x86_64-target-arch
-
 #include <pthread.h>
 #include <stdio.h>
 #include <string.h>

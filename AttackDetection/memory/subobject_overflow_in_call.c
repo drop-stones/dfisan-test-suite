@@ -1,8 +1,3 @@
-// RUN: %clang_dfisan %s -o %t
-// RUN: !%run %t
-//
-// REQUIRES: x86_64-target-arch
-
 // Sub-object overflow in function call
 
 #include <stdio.h>
@@ -14,12 +9,13 @@ struct S {
 };
 
 void Input(char *str) {
-  memcpy((void *)str, "aaaaaaaaaaaaaaaa", 16);
+  memcpy((void *)str, "aaaaaaaaaaaaaaa", 16);
 }
 
 int main(void) {
   int x = 100;
-  struct S s __attribute__((annotate("dfi_protection"))) = { "init", &x };
+  // struct S s __attribute__((annotate("dfi_protection"))) = { "init", &x };
+  struct S s = { "init", &x };
 
   printf("Before: s.ptr = %p\n", (void *)s.ptr);
   printf("\ts.str = %s\n", s.str);

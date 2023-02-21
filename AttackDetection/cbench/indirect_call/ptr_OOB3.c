@@ -1,6 +1,6 @@
-#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+
 typedef int (*SameTypeFunc_)(int, int);
 typedef void (*DiffRetFunc_)(int, int);
 typedef int (*DiffArgFunc_)(int, float);
@@ -59,7 +59,7 @@ int VoidArgFunc2(void) {
 
 int Foo(int a, int b) {
   printf("In %s\n", __FUNCTION__);
-  return 1;
+  return 0;
 }
 
 int Bar(int a, int b) {
@@ -89,8 +89,6 @@ static struct FuncPtr fptr1 = {
     .less_arg_func = {LessArgFunc1},
     .void_arg_func = {VoidArgFunc1},
 };
-*/
-struct FuncPtr fptr1 __attribute__((annotate("dfi_protection")));
 
 static struct FuncPtr fptr2 = {
     .correct_func = {Bar},
@@ -101,37 +99,27 @@ static struct FuncPtr fptr2 = {
     .less_arg_func = {LessArgFunc2},
     .void_arg_func = {VoidArgFunc2},
 };
-int idx;
-
-int Excute(void) {
-  printf("Calling a function:\n");
-  // scanf("%d", &idx);
-  idx = 6;
-  sleep(3);
-  return fptr1.correct_func[idx](idx, idx);
-}
-
-void *UseIdx(void *args) {
-  if (Excute())
-    printf("success exit\n");
-}
-
-void *IncreaseIdx(void *args) {
-	sleep(1);
-  printf("plz input index:\n");
-  // idx = 6;
-  // scanf("%d", &idx);
-}
+*/
+struct FuncPtr fptr1;
 
 int main(int argc, const char *argv[]) {
+  printf("In %s\n", __FUNCTION__);
 
-  printf("0: the correct function\n");
-  printf("1-6: out of bound access inside the same object\n");
-  printf("\tthe correct function: %p\n", (void *)fptr1.correct_func);
-  printf("let test the out of bound access inside the other object\n");
-  printf("\tthe same-type function infptr2: %p\n", (void *)fptr2.correct_func);
-  printf("The bar-based offset is sequentially increased by 1-6\n");
+/*
+  if (argc != 2) {
+    printf("Usage: %s <option>\n", argv[0]);
+    printf("Option values:\n");
+    printf("0: the correct function");
+    printf("1-6: out of bound access inside the same object");
+    printf("\tthe correct function: %p\n", (void *)fptr1.correct_func);
+    printf("let test the out of bound access inside the other object");
+    printf("\tthe same-type function infptr2: %p\n",
+           (void *)fptr2.correct_func);
+    printf("The bar-based offset is sequentially increased by 1-6\n");
 
+    return 1;
+  }
+*/
   fptr1.correct_func[0] = Foo;
   fptr1.same_type_func[0] = SameTypeFunc1;
   fptr1.diff_arg_func[0] = DiffArgFunc1;
@@ -140,12 +128,9 @@ int main(int argc, const char *argv[]) {
   fptr1.less_arg_func[0] = LessArgFunc1;
   fptr1.void_arg_func[0] = VoidArgFunc1;
 
-  pthread_t a, b;
-  pthread_create(&a, NULL, UseIdx, NULL);
-  pthread_create(&b, NULL, IncreaseIdx, NULL);
-  pthread_join(a, NULL);
-  pthread_join(b, NULL);
-
-  // Excute(argv);
+  printf("Calling a function:\n");
+  // int idx = argv[1][0] - '0';
+  int idx = 6;
+  fptr1.correct_func[idx](idx, idx);
   return 0;
 }

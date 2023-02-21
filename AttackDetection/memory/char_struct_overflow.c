@@ -1,8 +1,3 @@
-// RUN: %clang_dfisan %s -o %t
-// RUN: !%run %t
-//
-// REQUIRES: x86_64-target-arch
-
 // Tests that dfisan can detect buffer overflow in char.
 
 struct CharSet {
@@ -11,7 +6,8 @@ struct CharSet {
 };
 
 int main(int argc, char **argv) {
-  struct CharSet cs __attribute__((annotate("dfi_protection")));
+  // struct CharSet cs __attribute__((annotate("dfi_protection")));
+  struct CharSet cs;
   cs.c1 = 'a';
   for (int i = 0; i < 2; i++)
     cs.c0[i] = 'b';

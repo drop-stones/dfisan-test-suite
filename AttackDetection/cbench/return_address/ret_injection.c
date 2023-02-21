@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+char input[0x30] = "Cause buffer overflow to overwrite return address";
+
 void Ret(void) {
 	char name[4];
 	printf("plz input your name: \n");
 	// vul
 	// read(0, name, 0x30);
-	char input[0x30] = "error input";
 	strncpy(name, input, 0x30);
 }
 

@@ -1,7 +1,9 @@
 #include <stdio.h>
 
-int x __attribute__((annotate("dfi_protection"))) = 100;
-int arr[8] __attribute__((annotate("dfi_protection")));
+// int x __attribute__((annotate("dfi_protection"))) = 100;
+// int arr[8] __attribute__((annotate("dfi_protection")));
+int x = 100;
+int arr[8];
 
 int main() {
   for (int i = 0; i < 8; i++)

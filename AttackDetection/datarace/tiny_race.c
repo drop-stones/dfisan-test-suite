@@ -1,8 +1,3 @@
-// RUN: %clang_dfisan %s -o %t
-// RUN: ! %run %t
-//
-// REQUIRES: x86_64-target-arch
-
 #include "test.h"
 
 int Global __attribute__((annotate("dfi_protection")));

@@ -1,8 +1,3 @@
-// RUN: %clang_dfisan %s -o %t
-// RUN: %run %t
-//
-// REQUIRES: x86_64-target-arch
-
 // Race between an aligned access and an unaligned access, which
 // touches the same memory region.
 

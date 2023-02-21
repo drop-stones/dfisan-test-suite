@@ -1,10 +1,12 @@
 int *ret_ptr(void) {
-  int x __attribute__((annotate("dfi_protection"))) = 100;
+  // int x __attribute__((annotate("dfi_protection"))) = 100;
+  int x = 100;
   return &x;
 }
 
 int *ret_ptr2(void) {
-  int y __attribute__((annotate("dfi_protection"))) = 200;
+  // int y __attribute__((annotate("dfi_protection"))) = 200;
+  int y = 200;
   return &y;
 }
 
